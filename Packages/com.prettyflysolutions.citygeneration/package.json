@@ -1,0 +1,10 @@
+{
+  "name": "com.prettyflysolutions.citygeneration",
+  "version": "0.1.1",
+  "displayName": "City Generation Tool",
+  "description": "",
+  "unity": "2021.1",
+  "author": {
+    "name": "Pretty Fly Solutions"
+  }
+}

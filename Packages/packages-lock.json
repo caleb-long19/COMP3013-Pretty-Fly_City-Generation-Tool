@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.prettyflysolutions.citygeneration": {
+      "version": "file:com.prettyflysolutions.citygeneration",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "1.7.1",
       "depth": 0,
