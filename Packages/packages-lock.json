@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.prettyflysolutions.citygeneration": {
-      "version": "file:com.prettyflysolutions.citygeneration",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
