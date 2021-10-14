@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class CityBuilderWindow : EditorWindow
 {
-    int gridInt = 0;
+    int gridInt = -1;
     string[] brushNames = { "Down Town", "CBD", "Residential", "Industrial", "Ghetto", "Green Zone" };
 
     [MenuItem("Tools/City Builder Window")]   
