@@ -13,13 +13,7 @@ public class CityBuilderWindow : EditorWindow
 
     int gridInt = -1;
     string[] districtNames = { "Down Town", "CBD", "Residential", "Industrial", "Ghetto", "Green Zone" };
-    Color[] districtColors = {new Color32(255, 128, 0, 200),
-                              new Color32(0, 128, 255, 200),
-                              new Color32(255, 0, 255,200),
-                              new Color32(255, 0, 0, 200),
-                              new Color32(128, 128, 128, 200),
-                              new Color32(0, 255, 0, 200)};
-
+    
     [MenuItem("Tools/City Builder Window")]   
     public static void ShowWindow()
     {
@@ -58,7 +52,7 @@ public class CityBuilderWindow : EditorWindow
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation);
         newObject.name = objectBaseName + objectID;
         newObject.transform.localScale = newObject.transform.localScale * districtSize;
-        newObject.GetComponent<Renderer>().material.color = districtColors[gridInt];
+        newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + objectBaseName, typeof(Material)) as Material;  
 
         //district spawns at (0,0) so needs to be moved to a space where it is not overlapping with other districts
         moveDistrict(newObject);
@@ -74,13 +68,16 @@ public class CityBuilderWindow : EditorWindow
         var districtCount = districts.Length;
 
         if( districtCount > 1)
-        {
+        { 
+            
             foreach (var dist in districts)
             {
-                if (Overlaps(newDistrict.GetComponent<RectTransform>().rect, dist.GetComponent<RectTransform>().rect))
+                
+                if (Overlaps(newDistrict.transform.GetChild(0).GetComponent<Collider>(), dist.transform.GetChild(0).GetComponent<Collider>()))
                 {
+                    
                     Vector3 p = newDistrict.transform.position;
-                    p.x = dist.transform.position.x + dist.transform.localScale.x / 2;
+                    p.x = dist.transform.position.x + newDistrict.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x / 2 + dist.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x / 2;
                     newDistrict.transform.position = p;
                 }
             }
@@ -90,9 +87,13 @@ public class CityBuilderWindow : EditorWindow
     }
 
     // a small method to check if districts overlap
-    bool Overlaps(Rect rA, Rect rB)
+    bool Overlaps(Collider collider1,Collider collider2)
     {
-        return (rA.x < rB.x + rB.width && rA.x + rA.width > rB.x && rA.y < rB.y + rB.height && rA.y + rA.height > rB.y);
+        if(collider1 == collider2)
+        {
+            return false;
+        }
+        return (collider1.bounds.Intersects(collider2.bounds));
     }
 
     
