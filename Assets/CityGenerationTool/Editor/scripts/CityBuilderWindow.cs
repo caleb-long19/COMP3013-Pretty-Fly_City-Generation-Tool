@@ -33,6 +33,11 @@ public class CityBuilderWindow : EditorWindow
             Spawn();
         }
 
+        if (GUILayout.Button("Generate"))
+        {
+            Generate();
+        }
+
     }
 
     private void Spawn()
@@ -96,5 +101,18 @@ public class CityBuilderWindow : EditorWindow
         return (collider1.bounds.Intersects(collider2.bounds));
     }
 
+    
+    
+    private void Generate()
+    {
+        var districts = GameObject.FindGameObjectsWithTag("District");
+        var districtCount = districts.Length;
+        
+        foreach(var dist in districts)
+        {
+            
+            dist.GetComponent<CityZone>().Generate();
+        }
+    }
     
 }
