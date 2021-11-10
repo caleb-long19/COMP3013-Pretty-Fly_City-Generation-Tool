@@ -94,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 1, z: 10}
-  m_Center: {x: 0, y: -0.5205448, z: 0}
+  m_Size: {x: 10, y: 7.919, z: 10}
+  m_Center: {x: 0, y: 2.938955, z: 0}
 --- !u!1 &6801962143305548694
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,3 +145,4 @@ MonoBehaviour:
   - {fileID: -8679921383154817045, guid: 66fb1f5e6afa95f4bb77abea24c8157a, type: 3}
   - {fileID: -8679921383154817045, guid: a5285e1994087af4f8c07f34b3ee70a8, type: 3}
   buildingSpace: 0
+  roadWidth: 1
