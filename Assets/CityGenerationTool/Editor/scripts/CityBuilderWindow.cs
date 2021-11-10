@@ -57,8 +57,8 @@ public class CityBuilderWindow : EditorWindow
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation);
         newObject.name = objectBaseName + objectID;
         newObject.transform.localScale = newObject.transform.localScale * districtSize;
-        newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + objectBaseName, typeof(Material)) as Material;  
-
+        newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + objectBaseName, typeof(Material)) as Material;
+        objectID++;
         //district spawns at (0,0) so needs to be moved to a space where it is not overlapping with other districts
         moveDistrict(newObject);
 
@@ -67,37 +67,46 @@ public class CityBuilderWindow : EditorWindow
 
     //this method will move a district in the x direction until it is no longer overlapping
     // the plan is to eventually make it move in the direction which requires the least distance to find space 
-    private bool moveDistrict(GameObject newDistrict)
+    private void moveDistrict(GameObject newDistrict)
     {
         var districts = GameObject.FindGameObjectsWithTag("District");
         var districtCount = districts.Length;
+
+        
 
         if( districtCount > 1)
         { 
             
             foreach (var dist in districts)
             {
+                Debug.Log("Position: " + newDistrict.transform.position);
                 
-                if (Overlaps(newDistrict.transform.GetChild(0).GetComponent<Collider>(), dist.transform.GetChild(0).GetComponent<Collider>()))
+                if (newDistrict != dist && Overlaps(newDistrict.transform.GetChild(0).GetComponent<Collider>(), dist.transform.GetChild(0).GetComponent<Collider>()))
                 {
                     
                     Vector3 p = newDistrict.transform.position;
                     p.x = dist.transform.position.x + newDistrict.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x / 2 + dist.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x / 2;
+                   
                     newDistrict.transform.position = p;
+
+
+                    
                 }
             }
         }
         
-        return false;
+        
     }
 
     // a small method to check if districts overlap
     bool Overlaps(Collider collider1,Collider collider2)
     {
-        if(collider1 == collider2)
-        {
-            return false;
-        }
+        Debug.Log(collider1.transform.parent);
+        Debug.Log(collider1.bounds);
+        Debug.Log(collider2.transform.parent);
+        Debug.Log(collider2.bounds);
+
+        Debug.Log(collider1.bounds.Intersects(collider2.bounds));
         return (collider1.bounds.Intersects(collider2.bounds));
     }
 
