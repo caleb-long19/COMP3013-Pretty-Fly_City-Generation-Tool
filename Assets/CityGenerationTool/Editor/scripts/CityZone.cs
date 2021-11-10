@@ -10,19 +10,9 @@ public class CityZone : MonoBehaviour
     
     public float buildingSpace;
 
+    private Vector3 planeCorner;
+
     GameObject newObj;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void Clear(Transform plane)
     {
@@ -35,32 +25,42 @@ public class CityZone : MonoBehaviour
     }
 
     //method for randomly generating selected buildings on top of plane
+    // building will be randomly selected
     public void Generate()
     {
         Transform plane = this.transform.GetChild(0);
         Clear(plane);
+        planeCorner = transform.TransformPoint(plane.GetComponent<MeshFilter>().sharedMesh.vertices[0]);
+        Vector3 Position = planeCorner;
 
         for (int i = 0; i < 3; i++)
         {
-
-            Debug.Log(plane.transform.position.x);
-            Debug.Log(plane.transform.position.z);
-
-            float randomX = Random.Range(plane.transform.position.x - plane.transform.GetComponent<Renderer>().bounds.size.x / 2, plane.transform.parent.position.x + plane.transform.GetComponent<Renderer>().bounds.size.x / 2);
-            float randomZ = Random.Range(plane.transform.parent.position.z - plane.transform.GetComponent<Renderer>().bounds.size.z / 2, plane.transform.parent.position.z + plane.transform.GetComponent<Renderer>().bounds.size.z / 2);
-            Vector3 randomPosition = new Vector3(randomX, 0, randomZ);
-
-            
-            
-
-            
-            Instantiate(buildingList[i], plane, true);
-            plane.GetChild(i).name = buildingList[i].name;
-            plane.GetChild(i).localScale = plane.GetChild(i).localScale / 8;
-            plane.GetChild(i).position = randomPosition;
-
+            placeBuilding(Position, buildingList[i], plane, i);
         }
 
         
     }
+
+
+    void placeBuilding(Vector3 position, Transform building, Transform plane, int i)
+    {
+      
+
+        Instantiate(building, plane, true);
+        Vector3 P = plane.GetChild(i).position;
+
+        
+
+        plane.GetChild(i).name = buildingList[i].name;
+        plane.GetChild(i).localScale = plane.GetChild(i).localScale / 8;
+        P.x = position.x + plane.GetChild(i).GetComponent<Renderer>().bounds.size.x / 2;
+        P.y = position.y + plane.GetChild(i).GetComponent<Renderer>().bounds.size.y / 2;
+        plane.GetChild(i).position = P;
+
+        position.x = position.x + buildingSpace;
+
+        
+    }
+
+   
 }
