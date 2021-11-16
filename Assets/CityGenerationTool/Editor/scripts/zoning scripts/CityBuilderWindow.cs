@@ -38,6 +38,18 @@ public class CityBuilderWindow : EditorWindow
             Generate();
         }
 
+        GUILayout.Space(20);
+
+        if (GUILayout.Button("Undo"))
+        {
+            CityBuilderUndo();
+        }
+
+        if (GUILayout.Button("Redo"))
+        {
+            CityBuilderRedo();
+        }
+
     }
 
     private void Spawn()
@@ -100,7 +112,7 @@ public class CityBuilderWindow : EditorWindow
     }
 
     // a small method to check if districts overlap
-    bool Overlaps(Collider collider1,Collider collider2)
+    private bool Overlaps(Collider collider1,Collider collider2)
     {
         Debug.Log(collider1.transform.parent);
         Debug.Log(collider1.bounds);
@@ -124,5 +136,14 @@ public class CityBuilderWindow : EditorWindow
             dist.GetComponent<CityZone>().Generate();
         }
     }
-    
+
+    private void CityBuilderUndo() 
+    {
+        Undo.PerformUndo();
+    }
+    private void CityBuilderRedo()
+    {
+        Undo.PerformRedo();
+    }
+
 }
