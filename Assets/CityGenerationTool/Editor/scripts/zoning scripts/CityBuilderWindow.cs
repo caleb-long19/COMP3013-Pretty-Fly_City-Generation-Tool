@@ -55,6 +55,7 @@ public class CityBuilderWindow : EditorWindow
         }
 
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation);
+        Undo.RegisterCreatedObjectUndo(newObject, "Spawn District");
         newObject.name = objectBaseName + objectID;
         newObject.transform.localScale = newObject.transform.localScale * districtSize;
         newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + objectBaseName, typeof(Material)) as Material;
