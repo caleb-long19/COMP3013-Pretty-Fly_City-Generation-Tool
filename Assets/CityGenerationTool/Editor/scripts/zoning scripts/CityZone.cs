@@ -37,95 +37,83 @@ public class CityZone : MonoBehaviour
         roads.Reset();
         buildings.Reset();
 
-<<<<<<< HEAD
+
         var sequence = GenerationSystem.GenerateSentence();
         LayRoad(sequence);
         roads.FixRoad();
         buildings.PlaceStructuresAroundRoad(roads.GetRoadPositions());
 
-=======
-    private Vector3 planeCorner;
-    private float defaultSpacing = 0.2f;
->>>>>>> 0a9f1f48113acc97bfd2b22c4284b4448e41f2fa
+
+    
 
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
+
+
         //district.GetComponentInChildren<Visualiser>().CreateTown();
         //DestroyImmediate(district.transform.GetChild(0).gameObject);
     }
 
     private void LayRoad(string sequence)
+{
+    int length = DistrictSize;
+
+    Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
+    var currentPosition = this.gameObject.transform.position;
+
+    Vector3 direction = Vector3.forward;
+    Vector3 tempPosition = Vector3.zero;
+
+    foreach (var letter in sequence)
     {
-        int length = DistrictSize;
-
-        Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
-        var currentPosition = this.gameObject.transform.position;
-
-        Vector3 direction = Vector3.forward;
-        Vector3 tempPosition = Vector3.zero;
-
-        foreach(var letter in sequence)
+        referenceLetters reference = (referenceLetters)letter;
+        switch (reference)
         {
-            referenceLetters reference = (referenceLetters)letter;
-            switch (reference)
-            {
-                case referenceLetters.save:
-                    savePoints.Push(new AgentParameters
-                    {
-                        position = currentPosition,
-                        direction = direction,
-                        length = Length
-                    });
-                    break;
-                case referenceLetters.load:
-                    if (savePoints.Count > 0)
-                    {
-                        var agentParameter = savePoints.Pop();
-                        currentPosition = agentParameter.position;
-                        direction = agentParameter.direction;
-                        Length = agentParameter.length;
-                    }
-                    else
-                    {
-                        throw new System.Exception("No Save Point in Stack");
-                    }
-                    break;
-                case referenceLetters.draw:
-                    tempPosition = currentPosition;
-                    currentPosition += direction * length;
-                    roads.PlaceStreetPositions(tempPosition, Vector3Int.RoundToInt(direction), length);
-                    Length -= 2;
+            case referenceLetters.save:
+                savePoints.Push(new AgentParameters
+                {
+                    position = currentPosition,
+                    direction = direction,
+                    length = Length
+                });
+                break;
+            case referenceLetters.load:
+                if (savePoints.Count > 0)
+                {
+                    var agentParameter = savePoints.Pop();
+                    currentPosition = agentParameter.position;
+                    direction = agentParameter.direction;
+                    Length = agentParameter.length;
+                }
+                else
+                {
+                    throw new System.Exception("No Save Point in Stack");
+                }
+                break;
+            case referenceLetters.draw:
+                tempPosition = currentPosition;
+                currentPosition += direction * length;
+                roads.PlaceStreetPositions(tempPosition, Vector3Int.RoundToInt(direction), length);
+                Length -= 2;
 
-                    break;
-                case referenceLetters.turnRight:
-                    direction = Quaternion.AngleAxis(angle, Vector3.up) * direction;
-                    break;
-                case referenceLetters.turnLeft:
-                    direction = Quaternion.AngleAxis(-angle, Vector3.up) * direction;
-                    break;
-                default:
-                    break;
-            }
+                break;
+            case referenceLetters.turnRight:
+                direction = Quaternion.AngleAxis(angle, Vector3.up) * direction;
+                break;
+            case referenceLetters.turnLeft:
+                direction = Quaternion.AngleAxis(-angle, Vector3.up) * direction;
+                break;
+            default:
+                break;
         }
+    } 
+}
         
-=======
->>>>>>> Stashed changes
+
     // Used for the random prefab selection
     public GameObject[] prefabPool;
     public GameObject[] prefabRandom;
 
-    // Method for randomly generating selected buildings on top of plane
-    void Clear(Transform plane)
-    {
-        int childs = plane.transform.childCount;
-        
-        for (int i = childs - 1; i >= 0; i--)
-        {
-            GameObject.DestroyImmediate(plane.transform.GetChild(i).gameObject);
-        }
-    }
+
 
     // Method used to store 
     public void RandomPrefab()
@@ -144,27 +132,7 @@ public class CityZone : MonoBehaviour
     }
 
     // Building will be randomly selected
-    public void Generate()
-    {
-        Transform plane = this.transform.GetChild(0);
-        Clear(plane);
-        planeCorner = transform.TransformPoint(plane.GetComponent<MeshFilter>().sharedMesh.vertices[10]);
-        Vector3 Position = planeCorner;
-        RandomPrefab();
-
-        for (int i = 0; i < prefabRandom.Length; i++)
-        {
-            Instantiate(prefabRandom[i], plane, true);
-            //setting building properties
-            plane.GetChild(i).name = prefabRandom[i].name;
-            plane.GetChild(i).localScale = plane.GetChild(i).localScale / 8;
-
-            //positioning of building
-            Position.x += plane.GetChild(i).GetComponent<Renderer>().bounds.size.x;
-            plane.GetChild(i).position = Position;    
-        } 
->>>>>>> 0a9f1f48113acc97bfd2b22c4284b4448e41f2fa
-    }
+    
 
     public enum referenceLetters 
     {

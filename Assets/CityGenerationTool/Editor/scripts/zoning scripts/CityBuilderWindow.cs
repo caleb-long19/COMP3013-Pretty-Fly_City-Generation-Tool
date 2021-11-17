@@ -99,7 +99,7 @@ public class CityBuilderWindow : EditorWindow
 
         if(gridIntSize == 0)
         {
-            newObject.GetComponent<CityZone>().DistrictSize = 4;
+            newObject.GetComponent<CityZone>().DistrictSize = 5;
             newObject.GetComponent<CityZone>().IterLimit = 2;
         }
         if (gridIntSize == 1)
@@ -109,8 +109,8 @@ public class CityBuilderWindow : EditorWindow
         }
         if (gridIntSize == 2)
         {
-            newObject.GetComponent<CityZone>().DistrictSize = 10;
-            newObject.GetComponent<CityZone>().IterLimit = 4;
+            newObject.GetComponent<CityZone>().DistrictSize = 12;
+            newObject.GetComponent<CityZone>().IterLimit = 3;
         }
 
         //district spawns at (0,0) so needs to be moved to a space where it is not overlapping with other districts
@@ -127,26 +127,7 @@ public class CityBuilderWindow : EditorWindow
         
     }
 
-<<<<<<< HEAD
-    
-=======
-    // a small method to check if districts overlap
-    private bool Overlaps(Collider collider1,Collider collider2)
-    {
-        Debug.Log(collider1.transform.parent);
-        Debug.Log(collider1.bounds);
-        Debug.Log(collider2.transform.parent);
-        Debug.Log(collider2.bounds);
->>>>>>> 0a9f1f48113acc97bfd2b22c4284b4448e41f2fa
 
-    
-
-    
-    
-<<<<<<< HEAD
-   
-    
-=======
     private void Generate()
     {
         var districts = GameObject.FindGameObjectsWithTag("District");
@@ -155,7 +136,7 @@ public class CityBuilderWindow : EditorWindow
         foreach(var dist in districts)
         {
             
-            dist.GetComponent<CityZone>().Generate();
+            dist.GetComponent<CityZone>().Generate(dist);
         }
     }
 
@@ -168,8 +149,5 @@ public class CityBuilderWindow : EditorWindow
         Undo.PerformRedo();
     }
 
-<<<<<<< Updated upstream
-=======
->>>>>>> 0a9f1f48113acc97bfd2b22c4284b4448e41f2fa
->>>>>>> Stashed changes
+
 }

@@ -74,7 +74,7 @@ public class Roads : MonoBehaviour
                 {
                     continue;
                 }
-                Destroy(roadDictionary[position]);
+                DestroyImmediate(roadDictionary[position]);
                 if (neighbourDirections.Contains(Direction.Up) && neighbourDirections.Contains(Direction.Right))
                 {
                     rotation = Quaternion.Euler(0, 90, 0);
