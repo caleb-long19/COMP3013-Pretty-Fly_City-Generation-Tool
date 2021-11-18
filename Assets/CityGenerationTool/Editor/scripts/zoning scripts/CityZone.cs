@@ -54,59 +54,59 @@ public class CityZone : MonoBehaviour
     }
 
     private void LayRoad(string sequence)
-{
-    int length = DistrictSize;
-
-    Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
-    var currentPosition = this.gameObject.transform.position;
-
-    Vector3 direction = Vector3.forward;
-    Vector3 tempPosition = Vector3.zero;
-
-    foreach (var letter in sequence)
     {
-        referenceLetters reference = (referenceLetters)letter;
-        switch (reference)
-        {
-            case referenceLetters.save:
-                savePoints.Push(new AgentParameters
-                {
-                    position = currentPosition,
-                    direction = direction,
-                    length = Length
-                });
-                break;
-            case referenceLetters.load:
-                if (savePoints.Count > 0)
-                {
-                    var agentParameter = savePoints.Pop();
-                    currentPosition = agentParameter.position;
-                    direction = agentParameter.direction;
-                    Length = agentParameter.length;
-                }
-                else
-                {
-                    throw new System.Exception("No Save Point in Stack");
-                }
-                break;
-            case referenceLetters.draw:
-                tempPosition = currentPosition;
-                currentPosition += direction * length;
-                roads.PlaceStreetPositions(tempPosition, Vector3Int.RoundToInt(direction), length);
-                Length -= 2;
+        int length = DistrictSize;
 
-                break;
-            case referenceLetters.turnRight:
-                direction = Quaternion.AngleAxis(angle, Vector3.up) * direction;
-                break;
-            case referenceLetters.turnLeft:
-                direction = Quaternion.AngleAxis(-angle, Vector3.up) * direction;
-                break;
-            default:
-                break;
-        }
-    } 
-}
+        Stack<AgentParameters> savePoints = new Stack<AgentParameters>();
+        var currentPosition = this.gameObject.transform.position;
+
+        Vector3 direction = Vector3.forward;
+        Vector3 tempPosition = Vector3.zero;
+
+        foreach (var letter in sequence)
+        {
+            referenceLetters reference = (referenceLetters)letter;
+            switch (reference)
+            {
+                case referenceLetters.save:
+                    savePoints.Push(new AgentParameters
+                    {
+                        position = currentPosition,
+                        direction = direction,
+                        length = Length
+                    });
+                    break;
+                case referenceLetters.load:
+                    if (savePoints.Count > 0)
+                    {
+                        var agentParameter = savePoints.Pop();
+                        currentPosition = agentParameter.position;
+                        direction = agentParameter.direction;
+                        Length = agentParameter.length;
+                    }
+                    else
+                    {
+                        throw new System.Exception("No Save Point in Stack");
+                    }
+                    break;
+                case referenceLetters.draw:
+                    tempPosition = currentPosition;
+                    currentPosition += direction * length;
+                    roads.PlaceStreetPositions(tempPosition, Vector3Int.RoundToInt(direction), length);
+                    Length -= 2;
+
+                    break;
+                case referenceLetters.turnRight:
+                    direction = Quaternion.AngleAxis(angle, Vector3.up) * direction;
+                    break;
+                case referenceLetters.turnLeft:
+                    direction = Quaternion.AngleAxis(-angle, Vector3.up) * direction;
+                    break;
+                default:
+                    break;
+            }
+        } 
+    }
         
 
     // Used for the random prefab selection
