@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class Buildings : MonoBehaviour
 {
@@ -101,6 +102,7 @@ public class Buildings : MonoBehaviour
     private GameObject SpawnPrefab(GameObject prefab, Vector3Int position, Quaternion rotation)
     {
         var newStructure = Instantiate(prefab, position, rotation, transform);
+        Undo.RegisterCreatedObjectUndo(newStructure, "Generate Buildings");
         return newStructure;
     }
 

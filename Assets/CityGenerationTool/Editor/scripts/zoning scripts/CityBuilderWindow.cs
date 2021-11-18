@@ -62,18 +62,6 @@ public class CityBuilderWindow : EditorWindow
             CityBuilderRedo();
         }
 
-        GUILayout.Space(20);
-
-        if (GUILayout.Button("Undo"))
-        {
-            CityBuilderUndo();
-        }
-
-        if (GUILayout.Button("Redo"))
-        {
-            CityBuilderRedo();
-        }
-
     }
 
     private void Spawn()
@@ -131,13 +119,12 @@ public class CityBuilderWindow : EditorWindow
     private void Generate()
     {
         var districts = GameObject.FindGameObjectsWithTag("District");
-        var districtCount = districts.Length;
-        
-        foreach(var dist in districts)
+
+        foreach (var dist in districts)
         {
-            
             dist.GetComponent<CityZone>().Generate(dist);
         }
+
     }
 
     private void CityBuilderUndo() 

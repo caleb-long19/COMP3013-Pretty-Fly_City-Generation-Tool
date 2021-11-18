@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEditor;
 
 public class Roads : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class Roads : MonoBehaviour
                 continue;
             }
             var road = Instantiate(roadStraight, position, rotation, transform);
+            Undo.RegisterCreatedObjectUndo(road, "Generate Builings");
             roadDictionary.Add(position, road);
             if (i==0 || i == length - 1)
             {
@@ -64,6 +66,7 @@ public class Roads : MonoBehaviour
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
                 roadDictionary[position] = Instantiate(roadEnd, position, rotation, transform);
+                Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Builings");
 
             }
             else if( neighbourDirections.Count == 2)
@@ -88,6 +91,7 @@ public class Roads : MonoBehaviour
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
                 roadDictionary[position] = Instantiate(roadCorner, position, rotation, transform);
+                Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Builings");
 
             }
             else if(neighbourDirections.Count == 3)
@@ -113,11 +117,13 @@ public class Roads : MonoBehaviour
                 }
 
                 roadDictionary[position] = Instantiate(road3Way, position, rotation, transform);
+                Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Builings");
             }
             else if (neighbourDirections.Count == 4)
             {
                 DestroyImmediate(roadDictionary[position]);
                 roadDictionary[position] = Instantiate(road4Way, position, rotation, transform);
+                Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Builings");
             }
         }
     }
