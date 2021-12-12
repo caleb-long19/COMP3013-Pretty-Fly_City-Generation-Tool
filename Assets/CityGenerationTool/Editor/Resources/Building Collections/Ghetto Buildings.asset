@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e181b369969204d9ac0a4bd277bb27, type: 3}
+  m_Name: Ghetto Buildings
+  m_EditorClassIdentifier: 
+  buildings:
+  - prefabs:
+    - {fileID: 1837974944180390844, guid: db5e4c60dbd353f418915536c1c6bced, type: 3}
+    - {fileID: 1837974944180390844, guid: 08e73aab1e5c3494181a85cf7d7126b1, type: 3}
+    sizeRequired: 2
+    quantity: 10
+    quantityAlreadyPlaced: 10
+  - prefabs:
+    - {fileID: 4723491850668850290, guid: 3ae944c0cb9b3214b8415dfa23280732, type: 3}
+    - {fileID: 1837974944180390844, guid: a58770711283e68439cfd3dc54ec1151, type: 3}
+    sizeRequired: 2
+    quantity: -1
+    quantityAlreadyPlaced: 108

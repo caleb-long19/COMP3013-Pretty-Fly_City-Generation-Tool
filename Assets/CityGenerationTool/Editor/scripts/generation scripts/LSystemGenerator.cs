@@ -50,8 +50,8 @@ public class LSystemGenerator : MonoBehaviour
         {
             if(rule.letter == c.ToString())
             {
-                if (randomIgnoreRuleModifier && iterationIndex > 0)
-                {Debug.Log("ignore");
+                if (randomIgnoreRuleModifier && iterationIndex > 0) { 
+                
                     
                     if(Random.value < chanceToIgnoreRule)
                     {

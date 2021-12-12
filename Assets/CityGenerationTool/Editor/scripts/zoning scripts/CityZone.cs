@@ -6,7 +6,7 @@ public class CityZone : MonoBehaviour
 {
     public LSystemGenerator GenerationSystem;
     public Roads roads;
-    public Buildings buildings;
+    public BuildingPlacer buildings;
     private int districtSize;
     private int iterLimit;
     private float angle = 90;

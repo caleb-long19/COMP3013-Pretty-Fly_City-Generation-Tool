@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4166972586961982691}
-  - component: {fileID: 5788764759720234813}
+  - component: {fileID: 8913510800240702980}
   m_Layer: 0
   m_Name: StructureHelper
   m_TagString: Untagged
@@ -127,7 +127,7 @@ Transform:
   m_Father: {fileID: 4397385680669979460}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5788764759720234813
+--- !u!114 &8913510800240702980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,21 +136,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6098087130759833998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785c4c9c029e4c24d88e3dd3fa0a9596, type: 3}
+  m_Script: {fileID: 11500000, guid: a1c84de4c51373a45ab20ec7405e3f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingTypes:
-  - prefabs:
-    - {fileID: 4723491850668850290, guid: f8512036bca026544b868ff62d9ccfa3, type: 3}
-    sizeRequired: 3
-    quantity: 1
-    quantityAlreadyPlaced: 0
-  - prefabs:
-    - {fileID: 4723491850668850290, guid: f7c9ae0f792e40741a54651dcb2c0607, type: 3}
-    - {fileID: 4723491850668850290, guid: 3ae944c0cb9b3214b8415dfa23280732, type: 3}
-    sizeRequired: 1
-    quantity: -1
-    quantityAlreadyPlaced: 0
+  buildingCollection: {fileID: 0}
 --- !u!1 &6381153513624906085
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +238,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GenerationSystem: {fileID: 2910618953159315987}
   roads: {fileID: 2469583933526700847}
-  buildings: {fileID: 5788764759720234813}
+  buildings: {fileID: 8913510800240702980}
+  prefabPool: []
+  prefabRandom: []
 --- !u!1 &8315532377122921436
 GameObject:
   m_ObjectHideFlags: 0

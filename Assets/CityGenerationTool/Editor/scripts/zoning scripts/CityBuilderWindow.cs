@@ -83,6 +83,9 @@ public class CityBuilderWindow : EditorWindow
         newObject.name = objectBaseName + objectID;
         newObject.transform.GetChild(0).localScale = newObject.transform.GetChild(0).localScale * (gridIntSize + 1);
         newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + objectBaseName, typeof(Material)) as Material;
+
+        newObject.transform.GetChild(2).GetComponent<BuildingPlacer>().buildingCollection = (BuildingCollection)Resources.Load("Building Collections/" + objectBaseName + " Buildings");
+
         objectID++;
 
         if(gridIntSize == 0)
