@@ -5,10 +5,10 @@ using UnityEditor;
 
 public class CityBuilderWindow : EditorWindow
 {
-    string objectBaseName = "";
-    int objectID = 1;
-    GameObject districtToSpawn;
-    //float districtSize;
+    private string objectBaseName = "";
+    private int objectID = 1;
+    private GameObject districtToSpawn;
+    private GameObject cityParent;
     
 
     int gridIntDistrict = -1;
@@ -68,17 +68,27 @@ public class CityBuilderWindow : EditorWindow
     {
         districtToSpawn = Resources.Load("prefabs/District Prefab") as GameObject;
 
-        if(districtToSpawn == null)
+        if(gridIntDistrict == -1)
         {
             Debug.LogError("Error: Please choose a district to spawn");
+            return;
+        }
+        if(gridIntSize == -1)
+        {
+            Debug.LogError("Error: Please choose a size for the district");
             return;
         }
         if(objectBaseName == string.Empty)
         {
             objectBaseName = districtNames[gridIntDistrict];
         }
+        if (!cityParent)
+        {
+            cityParent = new GameObject("City");
+            
+        }
 
-        GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation);
+        GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation, cityParent.transform);
         Undo.RegisterCreatedObjectUndo(newObject, "Spawn District");
         newObject.name = objectBaseName + objectID;
         newObject.transform.GetChild(0).localScale = newObject.transform.GetChild(0).localScale * (gridIntSize + 1);
