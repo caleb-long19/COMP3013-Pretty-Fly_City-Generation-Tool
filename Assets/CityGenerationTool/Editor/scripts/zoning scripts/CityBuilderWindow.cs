@@ -85,7 +85,7 @@ public class CityBuilderWindow : EditorWindow
         if (!cityParent)
         {
             cityParent = new GameObject("City");
-            
+            cityParent.AddComponent<CityWhole>();
         }
 
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation, cityParent.transform);
