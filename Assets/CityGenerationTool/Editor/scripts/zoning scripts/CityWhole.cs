@@ -12,12 +12,39 @@ public class CityWhole : MonoBehaviour
 
     //method to connect district roads should also be here
 
-    public GameObject roadStraight, roadCorner, road3Way, road4Way, roadEnd;
-    Dictionary<Vector3Int, GameObject> roadDictionary = new Dictionary<Vector3Int, GameObject>();
-    HashSet<Vector3Int> fixRoadCandidates = new HashSet<Vector3Int>();
 
-    public void ConnectRoads()
+    [SerializeField] private Roads roadPlacer;
+    [SerializeField] private BuildingPlacer buildingPlacer;
+
+    public Roads RoadPlacer { get => roadPlacer; set => roadPlacer = value; }
+    public BuildingPlacer BuildingPlacer { get => buildingPlacer; set => buildingPlacer = value; }
+
+    public void Generate()
     {
+        Res();
+        var districts = GameObject.FindGameObjectsWithTag("District");
+        
 
+        foreach (var dist in districts)
+        {
+            dist.GetComponent<CityZone>().Generate(dist, roadPlacer);
+        }
+
+        roadPlacer.FixRoad();
+        foreach(var dist in districts)
+        {
+            buildingPlacer.PlaceStructuresAroundRoad(dist.GetComponent<CityZone>().localRoadCoordinates, dist.GetComponent<CityZone>().buildingCollection);
+        }
+        
     }
+
+    private void Res()
+    {
+        roadPlacer.Reset();
+
+        
+    }
+
+
+
 }

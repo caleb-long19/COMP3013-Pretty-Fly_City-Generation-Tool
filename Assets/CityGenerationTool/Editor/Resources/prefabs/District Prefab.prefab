@@ -105,9 +105,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4166972586961982691}
-  - component: {fileID: 8913510800240702980}
   m_Layer: 0
-  m_Name: StructureHelper
+  m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,19 +126,6 @@ Transform:
   m_Father: {fileID: 4397385680669979460}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8913510800240702980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6098087130759833998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1c84de4c51373a45ab20ec7405e3f32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingCollection: {fileID: 0}
 --- !u!1 &6381153513624906085
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,8 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GenerationSystem: {fileID: 2910618953159315987}
-  roads: {fileID: 2469583933526700847}
-  buildings: {fileID: 8913510800240702980}
+  roads: {fileID: 5407272389639719431}
+  buildings: {fileID: 4166972586961982691}
   prefabPool: []
   prefabRandom: []
 --- !u!1 &8315532377122921436
@@ -250,9 +236,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5407272389639719431}
-  - component: {fileID: 2469583933526700847}
   m_Layer: 0
-  m_Name: RoadHelper
+  m_Name: Roads
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,20 +257,3 @@ Transform:
   m_Father: {fileID: 4397385680669979460}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2469583933526700847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8315532377122921436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be20c1c37ec6152419187cc97080cb47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roadStraight: {fileID: 200822887792251113, guid: bfe849f39cf58e84e9c8fe8474e9515f, type: 3}
-  roadCorner: {fileID: 200822887792251113, guid: 13d3114aa5a4a884a9a492df225223ab, type: 3}
-  road3Way: {fileID: 200822887792251113, guid: c3715d53368ec9b47acbaabaca100510, type: 3}
-  road4Way: {fileID: 200822887792251113, guid: 96949970dbec5d241b0173e4672ff66e, type: 3}
-  roadEnd: {fileID: 200822887792251113, guid: 63a4d1f10a0fe3b4ea6ff7ac3e82307f, type: 3}

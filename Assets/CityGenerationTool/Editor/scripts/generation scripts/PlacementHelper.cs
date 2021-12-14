@@ -5,18 +5,19 @@ using UnityEngine;
 
 public static class PlacementHelper
 {
-    public static List<Direction> findNeighbour(Vector3Int position, ICollection<Vector3Int> collection)
+    public static List<Direction> findNeighbour(Vector3Int position, List<Vector3Int> collection)
     {
+        
         List<Direction> neighbourDirections = new List<Direction>();
-        if(collection.Contains(position+ Vector3Int.right * 2))
+        if (collection.Contains(position + new Vector3Int(2,0,0)))
         {
             neighbourDirections.Add(Direction.Right);
         }
-        if (collection.Contains(position - Vector3Int.right * 2))
+        if (collection.Contains(position - new Vector3Int(2,0,0)))
         {
             neighbourDirections.Add(Direction.Left);
         }
-        if (collection.Contains(position + new Vector3Int(0,0,2)))
+        if (collection.Contains(position + new Vector3Int(0, 0, 2)))
         {
             neighbourDirections.Add(Direction.Up);
         }
@@ -24,6 +25,7 @@ public static class PlacementHelper
         {
             neighbourDirections.Add(Direction.Down);
         }
+
 
         
         return neighbourDirections;

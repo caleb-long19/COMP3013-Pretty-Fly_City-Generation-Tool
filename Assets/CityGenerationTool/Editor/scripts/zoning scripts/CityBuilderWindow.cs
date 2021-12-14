@@ -35,8 +35,6 @@ public class CityBuilderWindow : EditorWindow
         objectBaseName = EditorGUILayout.TextField("District Name", objectBaseName);
 
 
-        
-
         if(GUILayout.Button("Spawn District"))
         {
             Spawn();
@@ -44,10 +42,7 @@ public class CityBuilderWindow : EditorWindow
 
         if (GUILayout.Button("Generate"))
         {
-            foreach (var district in GameObject.FindGameObjectsWithTag("District"))
-            {
-                district.GetComponent<CityZone>().Generate(district);
-            }
+            Generate();
         }
 
         GUILayout.Space(20);
@@ -86,6 +81,14 @@ public class CityBuilderWindow : EditorWindow
         {
             cityParent = new GameObject("City");
             cityParent.AddComponent<CityWhole>();
+
+            GameObject roadPlacer = Instantiate(Resources.Load("prefabs/Road Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
+            roadPlacer.name = "Road Placer";
+            cityParent.GetComponent<CityWhole>().RoadPlacer = roadPlacer.GetComponent<Roads>();
+
+            GameObject buildingPlacer = Instantiate(Resources.Load("prefabs/Building Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
+            buildingPlacer.name = "Building Placer";
+            cityParent.GetComponent<CityWhole>().BuildingPlacer = buildingPlacer.GetComponent<BuildingPlacer>();
         }
 
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation, cityParent.transform);
@@ -94,7 +97,8 @@ public class CityBuilderWindow : EditorWindow
         newObject.transform.GetChild(0).localScale = newObject.transform.GetChild(0).localScale * (gridIntSize + 1);
         newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + objectBaseName, typeof(Material)) as Material;
 
-        newObject.transform.GetChild(2).GetComponent<BuildingPlacer>().buildingCollection = (BuildingCollection)Resources.Load("Building Collections/" + objectBaseName + " Buildings");
+        //newObject.transform.GetChild(2).GetComponent<BuildingPlacer>().buildingCollection = (BuildingCollection)Resources.Load("Building Collections/" + objectBaseName + " Buildings");
+        newObject.GetComponent<CityZone>().buildingCollection = Resources.Load("Building Collections/" + objectBaseName + " Buildings") as BuildingCollection;
 
         objectID++;
 
@@ -131,13 +135,7 @@ public class CityBuilderWindow : EditorWindow
 
     private void Generate()
     {
-        var districts = GameObject.FindGameObjectsWithTag("District");
-
-        foreach (var dist in districts)
-        {
-            dist.GetComponent<CityZone>().Generate(dist);
-        }
-
+        cityParent.GetComponent<CityWhole>().Generate();
     }
 
     private void CityBuilderUndo() 

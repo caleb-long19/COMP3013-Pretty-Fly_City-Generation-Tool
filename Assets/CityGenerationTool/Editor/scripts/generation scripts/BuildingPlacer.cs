@@ -6,11 +6,13 @@ using UnityEditor;
 
 public class BuildingPlacer : MonoBehaviour
 {
-    public BuildingCollection buildingCollection;
+    
     public Dictionary<Vector3Int, GameObject> structuresDictionary = new Dictionary<Vector3Int, GameObject>();
 
-    public void PlaceStructuresAroundRoad(List<Vector3Int> roadPositions)
+    public void PlaceStructuresAroundRoad(List<Vector3Int> roadPositions, BuildingCollection buildingCollection)
     {
+        ResetBuildingCollection(buildingCollection);
+
         Dictionary<Vector3Int, Direction> freeSpots = FindFreeSpacesAroundRoad(roadPositions);
         List<Vector3Int> blockedPositions = new List<Vector3Int>();
         foreach(var freeSpot in freeSpots)
@@ -135,10 +137,15 @@ public class BuildingPlacer : MonoBehaviour
             DestroyImmediate(item);
         }
         structuresDictionary.Clear();
+        
+
+    }
+
+    private void ResetBuildingCollection(BuildingCollection buildingCollection)
+    {
         foreach (var buildingType in buildingCollection.buildings)
         {
             buildingType.Reset();
         }
-
     }
 }

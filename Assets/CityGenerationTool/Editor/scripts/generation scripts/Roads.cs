@@ -6,16 +6,18 @@ using UnityEditor;
 
 public class Roads : MonoBehaviour
 {
+
+
     public GameObject roadStraight, roadCorner, road3Way, road4Way, roadEnd;
     Dictionary<Vector3Int, GameObject> roadDictionary = new Dictionary<Vector3Int, GameObject>();
-    HashSet<Vector3Int> fixRoadCandidates = new HashSet<Vector3Int>();
+    HashSet<Vector3Int> allRoads = new HashSet<Vector3Int>();
 
     public List<Vector3Int> GetRoadPositions()
     {
         return roadDictionary.Keys.ToList();
     }
 
-    public void PlaceStreetPositions(Vector3 startPosition, Vector3Int direction, int length)
+    public void PlaceStreetPositions(Vector3 startPosition, Vector3Int direction, int length, Transform parent)
     {
         var rotation = Quaternion.identity;
         if(direction.x == 0)
@@ -29,13 +31,12 @@ public class Roads : MonoBehaviour
             {
                 continue;
             }
-            var road = Instantiate(roadStraight, position, rotation, transform);
+            var road = Instantiate(roadStraight, position, rotation, parent);
             Undo.RegisterCreatedObjectUndo(road, "Generate Builings");
             roadDictionary.Add(position, road);
-            if (i==0 || i == length - 1)
-            {
-                fixRoadCandidates.Add(position);
-            }
+            
+            allRoads.Add(position);
+            parent.parent.gameObject.GetComponent<CityZone>().localRoadCoordinates.Add(position);
             
         }
         
@@ -43,14 +44,17 @@ public class Roads : MonoBehaviour
 
     public void FixRoad()
     {
-        foreach (var position in fixRoadCandidates)
+        
+        foreach (var position in allRoads)
         {
-            List<Direction> neighbourDirections = PlacementHelper.findNeighbour(position, roadDictionary.Keys);
+            List<Direction> neighbourDirections = PlacementHelper.findNeighbour(position, new List<Vector3Int>(roadDictionary.Keys));
 
             Quaternion rotation = Quaternion.identity;
 
+            Transform parent = roadDictionary[position].transform.parent;
             
-            if(neighbourDirections.Count == 1)
+
+            if (neighbourDirections.Count == 1)
             {
                 DestroyImmediate(roadDictionary[position]);
                 if (neighbourDirections.Contains(Direction.Down))
@@ -65,8 +69,8 @@ public class Roads : MonoBehaviour
                 {
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
-                roadDictionary[position] = Instantiate(roadEnd, position, rotation, transform);
-                Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Builings");
+                roadDictionary[position] = Instantiate(roadEnd, position, rotation, parent);
+                Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Road");
 
             }
             else if( neighbourDirections.Count == 2)
@@ -90,7 +94,7 @@ public class Roads : MonoBehaviour
                 {
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
-                roadDictionary[position] = Instantiate(roadCorner, position, rotation, transform);
+                roadDictionary[position] = Instantiate(roadCorner, position, rotation, parent);
                 Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Builings");
 
             }
@@ -116,13 +120,13 @@ public class Roads : MonoBehaviour
                     rotation = Quaternion.Euler(0, -90, 0);
                 }
 
-                roadDictionary[position] = Instantiate(road3Way, position, rotation, transform);
+                roadDictionary[position] = Instantiate(road3Way, position, rotation, parent);
                 Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Builings");
             }
             else if (neighbourDirections.Count == 4)
             {
                 DestroyImmediate(roadDictionary[position]);
-                roadDictionary[position] = Instantiate(road4Way, position, rotation, transform);
+                roadDictionary[position] = Instantiate(road4Way, position, rotation, parent);
                 Undo.RegisterCreatedObjectUndo(roadDictionary[position], "Generate Builings");
             }
         }
@@ -134,6 +138,6 @@ public class Roads : MonoBehaviour
             DestroyImmediate(item);
         }
         roadDictionary.Clear();
-        fixRoadCandidates = new HashSet<Vector3Int>();
+        allRoads = new HashSet<Vector3Int>();
     }
 }

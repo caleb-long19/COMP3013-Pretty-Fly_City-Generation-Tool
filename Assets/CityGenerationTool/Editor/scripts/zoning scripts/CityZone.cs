@@ -5,11 +5,15 @@ using UnityEngine;
 public class CityZone : MonoBehaviour
 {
     public LSystemGenerator GenerationSystem;
-    public Roads roads;
-    public BuildingPlacer buildings;
+    public Transform roads;
+    public Transform buildings;
     private int districtSize;
     private int iterLimit;
     private float angle = 90;
+
+    public BuildingCollection buildingCollection;
+    public List<Vector3Int> localRoadCoordinates;
+
     public int DistrictSize { get => districtSize; set => districtSize = value; }
 
     public int Length
@@ -30,30 +34,20 @@ public class CityZone : MonoBehaviour
 
     public int IterLimit { get => iterLimit; set {iterLimit = value; GenerationSystem.iterationLimit = value; }  }
 
-    public void Generate(GameObject district)
+    public void Generate(GameObject district, Roads roadPlacer)
     {
-        reset(district.transform.GetChild(2));
-        reset(district.transform.GetChild(3));
-        roads.Reset();
-        buildings.Reset();
+        reset(roads);
+        reset(buildings);
+        
 
 
         var sequence = GenerationSystem.GenerateSentence();
-        LayRoad(sequence);
-        roads.FixRoad();
-        buildings.PlaceStructuresAroundRoad(roads.GetRoadPositions());
-
-
-    
-
-
-
-
-        //district.GetComponentInChildren<Visualiser>().CreateTown();
-        //DestroyImmediate(district.transform.GetChild(0).gameObject);
+        LayRoad(sequence, roadPlacer);
+        //roads.FixRoad();
+        //buildings.PlaceStructuresAroundRoad(roads.GetRoadPositions());
     }
 
-    private void LayRoad(string sequence)
+    public void LayRoad(string sequence, Roads roadPlacer)
     {
         int length = DistrictSize;
 
@@ -92,7 +86,7 @@ public class CityZone : MonoBehaviour
                 case referenceLetters.draw:
                     tempPosition = currentPosition;
                     currentPosition += direction * length;
-                    roads.PlaceStreetPositions(tempPosition, Vector3Int.RoundToInt(direction), length);
+                    roadPlacer.PlaceStreetPositions(tempPosition, Vector3Int.RoundToInt(direction), length, roads);
                     Length -= 2;
 
                     break;
@@ -109,27 +103,27 @@ public class CityZone : MonoBehaviour
     }
         
 
-    // Used for the random prefab selection
-    public GameObject[] prefabPool;
-    public GameObject[] prefabRandom;
+    //// Used for the random prefab selection
+    //public GameObject[] prefabPool;
+    //public GameObject[] prefabRandom;
 
 
 
     // Method used to store 
-    public void RandomPrefab()
-    {
-        //Loads objects from specified folder located in the resource folder
-        prefabPool = Resources.LoadAll<GameObject>("Blender Models/Residential");
+    //public void RandomPrefab()
+    //{
+    //    //Loads objects from specified folder located in the resource folder
+    //    prefabPool = Resources.LoadAll<GameObject>("Blender Models/Residential");
 
-        // Stores total number of prefabs in folder.
-        prefabRandom = new GameObject[prefabPool.Length];
+    //    // Stores total number of prefabs in folder.
+    //    prefabRandom = new GameObject[prefabPool.Length];
 
-        for (int i = 0; i < prefabRandom.Length; i++)
-        {
-            // We will now add three prefabs from prefabPool to prefabRandom array
-            prefabRandom[i] = prefabPool[Random.Range(0, prefabPool.Length)];
-        }
-    }
+    //    for (int i = 0; i < prefabRandom.Length; i++)
+    //    {
+    //        // We will now add three prefabs from prefabPool to prefabRandom array
+    //        prefabRandom[i] = prefabPool[Random.Range(0, prefabPool.Length)];
+    //    }
+    //}
 
     // Building will be randomly selected
     
@@ -148,6 +142,8 @@ public class CityZone : MonoBehaviour
     private void reset(Transform parent)
     {
         int i = 0;
+
+        localRoadCoordinates.Clear();
 
         GameObject[] allChildren = new GameObject[parent.transform.childCount];
 
