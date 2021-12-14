@@ -31,6 +31,7 @@ public class CityWhole : MonoBehaviour
         }
 
         roadPlacer.FixRoad();
+        buildingPlacer.Reset();
         foreach(var dist in districts)
         {
             buildingPlacer.PlaceStructuresAroundRoad(dist.GetComponent<CityZone>().localRoadCoordinates, dist.GetComponent<CityZone>().buildingCollection);

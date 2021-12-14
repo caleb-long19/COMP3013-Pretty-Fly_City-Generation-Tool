@@ -12,6 +12,7 @@ public class BuildingPlacer : MonoBehaviour
     public void PlaceStructuresAroundRoad(List<Vector3Int> roadPositions, BuildingCollection buildingCollection)
     {
         ResetBuildingCollection(buildingCollection);
+        
 
         Dictionary<Vector3Int, Direction> freeSpots = FindFreeSpacesAroundRoad(roadPositions);
         List<Vector3Int> blockedPositions = new List<Vector3Int>();
