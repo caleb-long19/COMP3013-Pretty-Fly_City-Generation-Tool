@@ -8,7 +8,9 @@ public class Roads : MonoBehaviour
 {
 
 
-    public GameObject roadStraight, roadCorner, road3Way, road4Way, roadEnd;
+    public GameObject roadStraight, roadCorner, road3Way, road4Way, roadEnd, roadSmallU, roadBigU, roadSmall90, roadBig90;
+    
+
     Dictionary<Vector3Int, GameObject> roadDictionary = new Dictionary<Vector3Int, GameObject>();
     HashSet<Vector3Int> allRoads = new HashSet<Vector3Int>();
 
@@ -41,6 +43,41 @@ public class Roads : MonoBehaviour
         }
         
     }
+
+    public void PlaceCurvedStreet(Vector3 startPosition, Vector3Int direction, string curveType, string curveDirection, Transform parent)
+    {
+        var position = Vector3Int.RoundToInt(startPosition + direction * 2);
+
+        //need to add coords that roads take up into a road dictionary
+        
+
+        if (curveType == "smallU")
+        {
+            var road = Instantiate(roadSmallU, position, Quaternion.identity, parent);
+        }
+        if (curveType == "biglU")
+        {
+            var road = Instantiate(roadBigU, position, Quaternion.identity, parent);
+        }
+        if (curveType == "small90")
+        {
+            var road = Instantiate(roadSmall90, position, Quaternion.identity, parent);
+        }
+        if (curveType == "big90")
+        {
+            var road = Instantiate(roadBig90, position, Quaternion.identity, parent);
+        }
+
+        //flip road prefab if curve direction is right
+        if(curveDirection == "right")
+        {
+            roadSmallU.transform.localScale =  new Vector3(1, 1,  -roadSmallU.transform.localScale.z);
+        }
+
+
+    }
+
+
 
     public void FixRoad()
     {

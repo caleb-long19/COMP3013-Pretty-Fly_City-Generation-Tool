@@ -96,6 +96,58 @@ public class CityZone : MonoBehaviour
                 case referenceLetters.turnLeft:
                     direction = Quaternion.AngleAxis(-angle, Vector3.up) * direction;
                     break;
+
+
+                    //need to create curve prefabs and then set the current position based on where the curve ends up
+                    //also need to implement curve letters into generation string
+                case referenceLetters.smallUTurn:
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "smallU", "left", roads);
+                    }
+                    else
+                    {
+                        roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "smallU", "right", roads);
+                    }
+
+                    break;
+
+                case referenceLetters.bigUTurn:
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "bigU", "left", roads);
+                    }
+                    else
+                    {
+                        roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "bigU", "right", roads);
+                    }
+
+                    break;
+
+                case referenceLetters.small90:
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "small90", "left", roads);
+                    }
+                    else
+                    {
+                        roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "small90", "right", roads);
+                    }
+
+                    break;
+
+                case referenceLetters.big90:
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "big90", "left", roads);
+                    }
+                    else
+                    {
+                        roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "big90", "right", roads);
+                    }
+
+                    break;
+
                 default:
                     break;
             }
@@ -103,29 +155,6 @@ public class CityZone : MonoBehaviour
     }
         
 
-    //// Used for the random prefab selection
-    //public GameObject[] prefabPool;
-    //public GameObject[] prefabRandom;
-
-
-
-    // Method used to store 
-    //public void RandomPrefab()
-    //{
-    //    //Loads objects from specified folder located in the resource folder
-    //    prefabPool = Resources.LoadAll<GameObject>("Blender Models/Residential");
-
-    //    // Stores total number of prefabs in folder.
-    //    prefabRandom = new GameObject[prefabPool.Length];
-
-    //    for (int i = 0; i < prefabRandom.Length; i++)
-    //    {
-    //        // We will now add three prefabs from prefabPool to prefabRandom array
-    //        prefabRandom[i] = prefabPool[Random.Range(0, prefabPool.Length)];
-    //    }
-    //}
-
-    // Building will be randomly selected
     
 
     public enum referenceLetters 
@@ -135,7 +164,12 @@ public class CityZone : MonoBehaviour
         load = ']',
         draw = 'F',
         turnRight = '+',
-        turnLeft = '-'
+        turnLeft = '-',
+        smallUTurn = 'u',
+        bigUTurn = 'U',
+        small90 = 'c',
+        big90 = 'C'
+
     }
 
 
