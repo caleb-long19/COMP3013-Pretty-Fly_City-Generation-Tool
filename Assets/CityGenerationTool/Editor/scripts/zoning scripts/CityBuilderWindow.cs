@@ -6,58 +6,128 @@ using UnityEditor;
 public class CityBuilderWindow : EditorWindow
 {
     private string objectBaseName = "";
+    private string newCityName = "";
+    private string newStreetLength = "";
+
     private int objectID = 1;
     private GameObject districtToSpawn;
     private GameObject cityParent;
-    
 
     int gridIntDistrict = -1;
     int gridIntSize = -1;
-    string[] districtNames = { "Down Town", "CBD", "Residential", "Industrial", "Ghetto", "Green Zone" };
-    string[] districtSize = { "small", "medium", "large" };
-    
-    [MenuItem("Tools/City Builder Window")]   
+    string[] districtNames = { "Downtown District", "Central Business District", "Residential District", "Industrial District", "Slums District", "Green Zone" };
+    string[] districtSize = { "Small District", "Medium District", "Large District" };
+
+    private static Texture2D tex;
+
+    [MenuItem("Tools/Pretty Fly's City Generator")]   
     public static void ShowWindow()
     {
         GetWindow(typeof(CityBuilderWindow)); // showing the editor window
+
+        tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+        tex.SetPixel(0, 0, new Color32(204, 204, 196, 255));
+        tex.Apply();
     }
+
 
     private void OnGUI() 
     {
-        GUILayout.Label("Select District", EditorStyles.boldLabel);
-        gridIntDistrict = GUILayout.SelectionGrid(gridIntDistrict, districtNames, 2);
+        #region GUI Styles - These change the font colour, size, style, etc.
+        GUIStyle myStyle = new GUIStyle();
+        myStyle.normal.textColor = Color.white;
+        myStyle.fontSize = 14;
+        myStyle.fontStyle = FontStyle.Bold;
 
-        EditorGUILayout.Space();
-        GUILayout.Label("Select Size", EditorStyles.boldLabel);
-        gridIntSize = GUILayout.SelectionGrid(gridIntSize, districtSize, 3);
+        GUIStyle Header = new GUIStyle();
+        Header.normal.textColor = Color.white;
+        Header.fontSize = 16;
+        Header.fontStyle = FontStyle.Bold;
+        #endregion
 
-        EditorGUILayout.Space();
-        objectBaseName = EditorGUILayout.TextField("District Name", objectBaseName);
+
+        #region Changes button colours and background
+        // GUI.DrawTexture(new Rect(0, 0, maxSize.x, maxSize.y), tex, ScaleMode.StretchToFill);
+        GUI.backgroundColor = new Color32(65, 121, 158, 255);
+        #endregion
 
 
-        if(GUILayout.Button("Spawn District"))
+        #region Contains code to display majority of UI Elements e.g. distict type buttons, labels, etc.
+        EditorGUILayout.Space(10);
+        GUILayout.Label("Select District Type:", myStyle);
+        gridIntDistrict = GUILayout.SelectionGrid(gridIntDistrict, districtNames, 2, GUILayout.Width(600), GUILayout.Height(100));
+
+        EditorGUILayout.Space(10);
+        GUILayout.Label("Select The Size Of Your District:", myStyle);
+        gridIntSize = GUILayout.SelectionGrid(gridIntSize, districtSize, 3, GUILayout.Width(400), GUILayout.Height(40));
+
+        EditorGUILayout.Space(15);
+        EditorGUILayout.LabelField("Enter Your District Name:", myStyle);
+        objectBaseName = EditorGUILayout.TextField(objectBaseName, GUILayout.Width(400), GUILayout.Height(25));
+
+        EditorGUILayout.Space(15);
+        GUILayout.Label("Spawn Your Selected District:", myStyle);
+        if (GUILayout.Button("Spawn District/s", GUILayout.Width(200), GUILayout.Height(50)))
         {
             Spawn();
         }
 
-        if (GUILayout.Button("Generate"))
+
+
+        EditorGUILayout.Space(15);
+        GUILayout.Label("Generate Your City Inside The District:", myStyle);
+        if (GUILayout.Button("Generate City", GUILayout.Width(260), GUILayout.Height(40)))
         {
             Generate();
         }
 
-        GUILayout.Space(20);
+        if (GUILayout.Button("Save Generated City/Cities", GUILayout.Width(260), GUILayout.Height(30)))
+        {
+            //Not working currently
+            SaveCity();
+        }
+        #endregion
 
-        if (GUILayout.Button("Undo"))
+
+        #region Contains the Undo and Redo button
+        GUILayout.Space(20);
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button("Undo", GUILayout.Width(100), GUILayout.Height(35)))
         {
             CityBuilderUndo();
         }
 
-        if (GUILayout.Button("Redo"))
+        if (GUILayout.Button("Redo", GUILayout.Width(100), GUILayout.Height(35)))
         {
             CityBuilderRedo();
         }
+        GUILayout.EndHorizontal();
+        #endregion
+
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        EditorGUILayout.Space(5);
+
+        #region Contains code to allow user to change their city name and street length (Unfinished)
+        GUILayout.Label("Edit Your City Details: UNFINISHED", Header);
+
+        EditorGUILayout.Space(15);
+        EditorGUILayout.LabelField("Change Selected City Name:", myStyle);
+        newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
+
+        EditorGUILayout.Space(15);
+        EditorGUILayout.LabelField("Change Your Street Length:", myStyle);
+        newStreetLength = EditorGUILayout.TextField(newStreetLength, GUILayout.Width(400), GUILayout.Height(25));
+
+        EditorGUILayout.Space(5);
+        if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
+        {
+            SaveCityDetails();
+        }
+        #endregion
 
     }
+
 
     private void Spawn()
     {
@@ -124,12 +194,11 @@ public class CityBuilderWindow : EditorWindow
         objectBaseName = "";
     }
 
-    //this method will move a district in the x direction until it is no longer overlapping
-    // the plan is to eventually make it move in the direction which requires the least distance to find space 
+
     private void moveDistrict(GameObject newDistrict)
     {
-        
-        
+        //this method will move a district in the x direction until it is no longer overlapping
+        // the plan is to eventually make it move in the direction which requires the least distance to find space 
     }
 
 
@@ -138,14 +207,28 @@ public class CityBuilderWindow : EditorWindow
         cityParent.GetComponent<CityWhole>().Generate();
     }
 
+
+    private void SaveCity()
+    {
+        //Code to save generated city and prevent it from being overwritten when the user clicks generate city again
+    }
+
+
+    private void SaveCityDetails()
+    {
+        //Code used to save the new details provided by the user e.g. new city name or street length
+    }
+
+
     private void CityBuilderUndo() 
     {
         Undo.PerformUndo();
     }
+
+
     private void CityBuilderRedo()
     {
         Undo.PerformRedo();
     }
-
 
 }
