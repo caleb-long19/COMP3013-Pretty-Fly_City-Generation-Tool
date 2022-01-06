@@ -26,4 +26,14 @@ public class Rule : ScriptableObject
         }
         return results[0];
     }
+
+    public void SetResults(string[] results) 
+    {
+        this.results = results;
+    } // Used for testing
+
+    public void SetRandomResult(bool randomResult) 
+    {
+        this.randomResult = randomResult;
+    } // Used for testing
 }
