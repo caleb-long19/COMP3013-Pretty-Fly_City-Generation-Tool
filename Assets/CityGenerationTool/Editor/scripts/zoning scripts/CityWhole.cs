@@ -21,13 +21,23 @@ public class CityWhole : MonoBehaviour
 
     public void Generate()
     {
+        int i =0;
         Res();
         var districts = GameObject.FindGameObjectsWithTag("District");
+
         
 
         foreach (var dist in districts)
         {
-            dist.GetComponent<CityZone>().Generate(dist, roadPlacer);
+            if (i != districts.Length - 1)
+            {
+                dist.GetComponent<CityZone>().Generate(dist, roadPlacer, districts[i+1]);
+            }
+            else
+            {
+                dist.GetComponent<CityZone>().Generate(dist, roadPlacer, districts[0]);
+            }
+            i++;
         }
 
         roadPlacer.FixRoad();
@@ -38,6 +48,7 @@ public class CityWhole : MonoBehaviour
         }
         
     }
+    
 
     private void Res()
     {

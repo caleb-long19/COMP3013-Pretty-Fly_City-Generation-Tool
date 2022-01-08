@@ -10,16 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48e181b369969204d9ac0a4bd277bb27, type: 3}
-  m_Name: CBD Buildings
+  m_Name: Industrial District Buildings
   m_EditorClassIdentifier: 
   buildings:
   - prefabs:
-    - {fileID: 9040599290667148103, guid: eb625e247e6f68b44979ff6086188c65, type: 3}
-    sizeRequired: 5
-    quantity: 3
-    quantityAlreadyPlaced: 3
-  - prefabs:
-    - {fileID: 9040599290667148103, guid: 6a9eff3e7fc2bd24db40e283a30dfe88, type: 3}
-    sizeRequired: 2
+    - {fileID: 6541589922960813125, guid: 4db6ba54fc43f2240b813112f34e369a, type: 3}
+    - {fileID: 6541589922960813125, guid: f8d09a2a9e29c5341ba44a06bfb24efb, type: 3}
+    sizeRequired: 3
     quantity: 30
-    quantityAlreadyPlaced: 1
+    quantityAlreadyPlaced: 20

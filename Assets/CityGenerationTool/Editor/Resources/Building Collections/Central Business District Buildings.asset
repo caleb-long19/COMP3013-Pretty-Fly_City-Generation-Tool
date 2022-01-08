@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48e181b369969204d9ac0a4bd277bb27, type: 3}
-  m_Name: Residential Buildings
+  m_Name: Central Business District Buildings
   m_EditorClassIdentifier: 
   buildings:
   - prefabs:
-    - {fileID: 7646764921246646927, guid: 1e3618a5fc2e2e7499004fe136e6e8c0, type: 3}
-    sizeRequired: 2
-    quantity: 7
-    quantityAlreadyPlaced: 7
+    - {fileID: 9040599290667148103, guid: eb625e247e6f68b44979ff6086188c65, type: 3}
+    sizeRequired: 5
+    quantity: 3
+    quantityAlreadyPlaced: 3
   - prefabs:
-    - {fileID: 7646764921246646927, guid: 1c1e064ed85dd494d907d637136d9cbc, type: 3}
-    - {fileID: 4723491850668850290, guid: f7c9ae0f792e40741a54651dcb2c0607, type: 3}
+    - {fileID: 9040599290667148103, guid: 6a9eff3e7fc2bd24db40e283a30dfe88, type: 3}
     sizeRequired: 2
-    quantity: -1
-    quantityAlreadyPlaced: 123
+    quantity: 30
+    quantityAlreadyPlaced: 1

@@ -34,18 +34,47 @@ public class CityZone : MonoBehaviour
 
     public int IterLimit { get => iterLimit; set {iterLimit = value; GenerationSystem.iterationLimit = value; }  }
 
-    public void Generate(GameObject district, Roads roadPlacer)
+    public void Generate(GameObject district, Roads roadPlacer, GameObject connectingDistrict)
     {
         reset(roads);
         reset(buildings);
-        
 
 
+        connectDisricts(roadPlacer, connectingDistrict);
         var sequence = GenerationSystem.GenerateSentence();
+
+        
         LayRoad(sequence, roadPlacer);
-        //roads.FixRoad();
-        //buildings.PlaceStructuresAroundRoad(roads.GetRoadPositions());
+        
     }
+    //code to connect districts
+    private void connectDisricts(Roads roadPlacer, GameObject district)
+    {
+        Vector3Int direction;
+
+        
+        Vector3Int pos1 = Vector3Int.RoundToInt(this.transform.position);
+
+        Vector3Int pos2 = Vector3Int.RoundToInt(district.transform.position);
+
+        if (pos1.x < pos2.x)
+        {
+            direction = new Vector3Int(1, 0, 0);
+        }
+        else
+        {
+            direction = new Vector3Int(-1, 0, 0);
+        }
+        roadPlacer.PlaceStreetPositions(pos1, direction, (pos2.x - pos1.x), roads);
+
+
+
+
+
+
+    }
+
+
 
     public void LayRoad(string sequence, Roads roadPlacer)
     {

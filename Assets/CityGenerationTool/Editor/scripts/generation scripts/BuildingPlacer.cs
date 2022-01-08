@@ -144,9 +144,13 @@ public class BuildingPlacer : MonoBehaviour
 
     private void ResetBuildingCollection(BuildingCollection buildingCollection)
     {
-        foreach (var buildingType in buildingCollection.buildings)
-        {
-            buildingType.Reset();
-        }
+        
+            foreach (var buildingType in buildingCollection.buildings)
+            {
+                buildingType.Reset();
+                
+            }
+        
+        
     }
 }

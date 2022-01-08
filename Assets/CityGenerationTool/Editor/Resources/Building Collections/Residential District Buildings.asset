@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48e181b369969204d9ac0a4bd277bb27, type: 3}
-  m_Name: Down Town Buildings
+  m_Name: Residential District Buildings
   m_EditorClassIdentifier: 
   buildings:
   - prefabs:
-    - {fileID: 9040599290667148103, guid: f40d1373afa1b514098ba9d26c9f389d, type: 3}
-    - {fileID: 9040599290667148103, guid: eb92224675153c348860993eb5b366de, type: 3}
+    - {fileID: 7646764921246646927, guid: 1e3618a5fc2e2e7499004fe136e6e8c0, type: 3}
     sizeRequired: 2
-    quantity: 16
-    quantityAlreadyPlaced: 16
+    quantity: 7
+    quantityAlreadyPlaced: 7
   - prefabs:
-    - {fileID: 9040599290667148103, guid: eb92224675153c348860993eb5b366de, type: 3}
-    sizeRequired: 1
-    quantity: 10
-    quantityAlreadyPlaced: 10
+    - {fileID: 7646764921246646927, guid: 1c1e064ed85dd494d907d637136d9cbc, type: 3}
+    - {fileID: 4723491850668850290, guid: f7c9ae0f792e40741a54651dcb2c0607, type: 3}
+    sizeRequired: 2
+    quantity: -1
+    quantityAlreadyPlaced: 123

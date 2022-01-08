@@ -11,7 +11,7 @@ public class Roads : MonoBehaviour
     public GameObject roadStraight, roadCorner, road3Way, road4Way, roadEnd, roadSmallU, roadBigU, roadSmall90, roadBig90;
     
 
-    Dictionary<Vector3Int, GameObject> roadDictionary = new Dictionary<Vector3Int, GameObject>();
+    public Dictionary<Vector3Int, GameObject> roadDictionary = new Dictionary<Vector3Int, GameObject>();
     HashSet<Vector3Int> allRoads = new HashSet<Vector3Int>();
 
     public List<Vector3Int> GetRoadPositions()
@@ -76,6 +76,8 @@ public class Roads : MonoBehaviour
 
 
     }
+    
+    
 
 
 
@@ -168,6 +170,9 @@ public class Roads : MonoBehaviour
             }
         }
     }
+
+    
+
     public void Reset()
     {
         foreach (var item in roadDictionary.Values)
