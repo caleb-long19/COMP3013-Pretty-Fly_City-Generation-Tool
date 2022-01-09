@@ -44,6 +44,31 @@ public class Roads : MonoBehaviour
         
     }
 
+    public void PlaceConnectingRoads(Vector3 startPosition, Vector3Int direction, int length, Transform parent)
+    {
+        var rotation = Quaternion.identity;
+        if (direction.x == 0)
+        {
+            rotation = Quaternion.Euler(0, 90, 0);
+        }
+        for (int i = 0; i < length; i++)
+        {
+            var position = Vector3Int.RoundToInt(startPosition + direction * i * 2);
+            if (roadDictionary.ContainsKey(position))
+            {
+                continue;
+            }
+            var road = Instantiate(roadStraight, position, rotation, parent);
+            Undo.RegisterCreatedObjectUndo(road, "Generate Builings");
+            roadDictionary.Add(position, road);
+
+            allRoads.Add(position);
+            
+
+        }
+
+    }
+
     public void PlaceCurvedStreet(Vector3 startPosition, Vector3Int direction, string curveType, string curveDirection, Transform parent)
     {
         var position = Vector3Int.RoundToInt(startPosition + direction * 2);
