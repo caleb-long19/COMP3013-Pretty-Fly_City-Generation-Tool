@@ -51,7 +51,7 @@ public class CityZone : MonoBehaviour
     private void connectDisricts(Roads roadPlacer, GameObject district)
     {
         Vector3Int direction;
-
+        int length =0;
         
         Vector3Int pos1 = Vector3Int.RoundToInt(this.transform.position);
 
@@ -65,12 +65,33 @@ public class CityZone : MonoBehaviour
         {
             direction = new Vector3Int(-1, 0, 0);
         }
-        roadPlacer.PlaceStreetPositions(pos1, direction, (pos2.x - pos1.x), roads);
+        if(pos2.x - pos1.x < 0)
+        {
+            length = -1 * (pos2.x - pos1.x);
+        }
+        else
+        {
+            length =  (pos2.x - pos1.x);
+        }
+        roadPlacer.PlaceConnectingRoads(pos1, direction, length / 2, roads);
 
-
-
-
-
+        if (pos1.z < pos2.z)
+        {
+            direction = new Vector3Int(0, 0, 1);
+        }
+        else
+        {
+            direction = new Vector3Int(0, 0, -1);
+        }
+        if (pos2.z - pos1.z < 0)
+        {
+            length = -1 * (pos2.z - pos1.z);
+        }
+        else
+        {
+            length = (pos2.z - pos1.z);
+        }
+        roadPlacer.PlaceConnectingRoads(pos1 + new Vector3Int((pos2.x - pos1.x),0, 0), direction, length / 2, roads);
 
     }
 
