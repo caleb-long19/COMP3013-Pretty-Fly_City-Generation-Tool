@@ -6,7 +6,7 @@ using UnityEditor;
 public class CityBuilderWindow : EditorWindow
 {
     private string cityName = "";
-    private string newCityName = "";
+    private string newDistrictName = "";
     private string newStreetLength = "";
 
     private int objectID = 1;
@@ -116,16 +116,27 @@ public class CityBuilderWindow : EditorWindow
 
             EditorGUILayout.Space(15);
             EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
-            newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
+            newDistrictName = EditorGUILayout.TextField(newDistrictName, GUILayout.Width(400), GUILayout.Height(25));
 
             EditorGUILayout.Space(15);
             EditorGUILayout.LabelField("Change Your Street Length:", myStyle);
             newStreetLength = EditorGUILayout.TextField(newStreetLength, GUILayout.Width(400), GUILayout.Height(25));
 
+
+            //street density
+
+            //building density
+
+            //
+
+
             EditorGUILayout.Space(5);
             if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
             {
-                SaveCityDetails();
+                Selection.activeGameObject.name = newDistrictName;
+
+
+                //Selection.activeGameObject = null;
             }
         }
         
