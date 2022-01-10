@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class CityZone : MonoBehaviour
 {
     public LSystemGenerator GenerationSystem;

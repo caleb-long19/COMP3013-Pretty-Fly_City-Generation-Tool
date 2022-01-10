@@ -44,7 +44,7 @@ public class CityWhole : MonoBehaviour
         buildingPlacer.Reset();
         foreach(var dist in districts)
         {
-            buildingPlacer.PlaceStructuresAroundRoad(dist.GetComponent<CityZone>().localRoadCoordinates, dist.GetComponent<CityZone>().buildingCollection);
+            buildingPlacer.PlaceStructuresAroundRoad(dist.GetComponent<CityZone>().localRoadCoordinates, roadPlacer.allRoads, dist.GetComponent<CityZone>().buildingCollection, dist.GetComponent<CityZone>().buildings);
         }
         
     }

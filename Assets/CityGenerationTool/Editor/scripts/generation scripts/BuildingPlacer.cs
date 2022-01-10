@@ -9,12 +9,12 @@ public class BuildingPlacer : MonoBehaviour
     
     public Dictionary<Vector3Int, GameObject> structuresDictionary = new Dictionary<Vector3Int, GameObject>();
 
-    public void PlaceStructuresAroundRoad(List<Vector3Int> roadPositions, BuildingCollection buildingCollection)
+    public void PlaceStructuresAroundRoad(List<Vector3Int> localRoadPositions, List<Vector3Int> allRoadPositions, BuildingCollection buildingCollection, Transform parent)
     {
         ResetBuildingCollection(buildingCollection);
         
 
-        Dictionary<Vector3Int, Direction> freeSpots = FindFreeSpacesAroundRoad(roadPositions);
+        Dictionary<Vector3Int, Direction> freeSpots = FindFreeSpacesAroundRoad(localRoadPositions, allRoadPositions);
         List<Vector3Int> blockedPositions = new List<Vector3Int>();
         foreach(var freeSpot in freeSpots)
         {
@@ -41,7 +41,7 @@ public class BuildingPlacer : MonoBehaviour
             {
                 if(buildingCollection.buildings[i].quantity == -1)
                 {
-                    var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation);
+                    var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent);
                     structuresDictionary.Add(freeSpot.Key, building);
                     break;
                 }
@@ -54,7 +54,7 @@ public class BuildingPlacer : MonoBehaviour
                         if(VerifyIfBuildingFits(halfSize, freeSpots,freeSpot,blockedPositions ,ref tempPosLocked))
                         {
                             blockedPositions.AddRange(tempPosLocked);
-                            var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation);
+                            var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent);
                             structuresDictionary.Add(freeSpot.Key, building);
                             foreach(var pos in tempPosLocked)
                             {
@@ -65,7 +65,7 @@ public class BuildingPlacer : MonoBehaviour
                     }
                     else
                     {
-                        var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation);
+                        var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent);
                         structuresDictionary.Add(freeSpot.Key, building);
                     }
                     break;
@@ -102,20 +102,20 @@ public class BuildingPlacer : MonoBehaviour
         return true;
     }
 
-    private GameObject SpawnPrefab(GameObject prefab, Vector3Int position, Quaternion rotation)
+    private GameObject SpawnPrefab(GameObject prefab, Vector3Int position, Quaternion rotation, Transform parent)
     {
-        var newStructure = Instantiate(prefab, position, rotation, transform);
+        var newStructure = Instantiate(prefab, position, rotation, parent);
         Undo.RegisterCreatedObjectUndo(newStructure, "Generate Buildings");
         return newStructure;
     }
 
-    private Dictionary<Vector3Int, Direction> FindFreeSpacesAroundRoad(List<Vector3Int> roadPositions)
+    private Dictionary<Vector3Int, Direction> FindFreeSpacesAroundRoad(List<Vector3Int> localRoadPositions, List<Vector3Int> allRoadPositions)
     {
         Dictionary<Vector3Int, Direction> freeSpaces = new Dictionary<Vector3Int, Direction>();
         //duplicate code from road code, possibly find more efficient way
-        foreach(var position in roadPositions)
+        foreach(var position in localRoadPositions)
         {
-            var neighboursDirections = PlacementHelper.findNeighbour(position, roadPositions);
+            var neighboursDirections = PlacementHelper.findNeighbour(position, allRoadPositions);
             foreach (Direction direction in Enum.GetValues(typeof(Direction)))
             {
                 if(neighboursDirections.Contains(direction) == false)

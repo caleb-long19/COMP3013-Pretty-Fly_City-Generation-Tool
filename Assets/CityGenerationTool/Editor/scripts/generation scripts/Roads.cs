@@ -12,7 +12,7 @@ public class Roads : MonoBehaviour
     
 
     public Dictionary<Vector3Int, GameObject> roadDictionary = new Dictionary<Vector3Int, GameObject>();
-    HashSet<Vector3Int> allRoads = new HashSet<Vector3Int>();
+    public List<Vector3Int> allRoads = new List<Vector3Int>();
 
     public List<Vector3Int> GetRoadPositions()
     {
@@ -205,6 +205,6 @@ public class Roads : MonoBehaviour
             DestroyImmediate(item);
         }
         roadDictionary.Clear();
-        allRoads = new HashSet<Vector3Int>();
+        allRoads.Clear();
     }
 }

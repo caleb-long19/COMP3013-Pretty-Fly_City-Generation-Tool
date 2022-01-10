@@ -5,13 +5,14 @@ using UnityEditor;
 
 public class CityBuilderWindow : EditorWindow
 {
-    private string objectBaseName = "";
+    private string cityName = "";
     private string newCityName = "";
     private string newStreetLength = "";
 
     private int objectID = 1;
     private GameObject districtToSpawn;
     private GameObject cityParent;
+    private bool distSelected;
 
     int gridIntDistrict = -1;
     int gridIntSize = -1;
@@ -54,34 +55,34 @@ public class CityBuilderWindow : EditorWindow
 
         #region Contains code to display majority of UI Elements e.g. distict type buttons, labels, etc.
         EditorGUILayout.Space(10);
+        EditorGUILayout.LabelField("Enter Your City Name:", myStyle);
+        cityName = EditorGUILayout.TextField(cityName, GUILayout.Width(300), GUILayout.Height(20));
+
+        EditorGUILayout.Space(10);
         GUILayout.Label("Select District Type:", myStyle);
-        gridIntDistrict = GUILayout.SelectionGrid(gridIntDistrict, districtNames, 2, GUILayout.Width(600), GUILayout.Height(100));
+        gridIntDistrict = GUILayout.SelectionGrid(gridIntDistrict, districtNames, 2, GUILayout.Width(300), GUILayout.Height(80));
 
         EditorGUILayout.Space(10);
         GUILayout.Label("Select The Size Of Your District:", myStyle);
-        gridIntSize = GUILayout.SelectionGrid(gridIntSize, districtSize, 3, GUILayout.Width(400), GUILayout.Height(40));
+        gridIntSize = GUILayout.SelectionGrid(gridIntSize, districtSize, 3, GUILayout.Width(300), GUILayout.Height(40));
 
-        EditorGUILayout.Space(15);
-        EditorGUILayout.LabelField("Enter Your District Name:", myStyle);
-        objectBaseName = EditorGUILayout.TextField(objectBaseName, GUILayout.Width(400), GUILayout.Height(25));
-
-        EditorGUILayout.Space(15);
+        EditorGUILayout.Space(10);
         GUILayout.Label("Spawn Your Selected District:", myStyle);
-        if (GUILayout.Button("Spawn District/s", GUILayout.Width(200), GUILayout.Height(50)))
+        if (GUILayout.Button("Spawn District/s", GUILayout.Width(300), GUILayout.Height(40)))
         {
             Spawn();
         }
 
 
 
-        EditorGUILayout.Space(15);
+        EditorGUILayout.Space(10);
         GUILayout.Label("Generate Your City Inside The District:", myStyle);
-        if (GUILayout.Button("Generate City", GUILayout.Width(260), GUILayout.Height(40)))
+        if (GUILayout.Button("Generate City", GUILayout.Width(300), GUILayout.Height(40)))
         {
             Generate();
         }
 
-        if (GUILayout.Button("Save Generated City/Cities", GUILayout.Width(260), GUILayout.Height(30)))
+        if (GUILayout.Button("Save Generated City/Cities", GUILayout.Width(300), GUILayout.Height(30)))
         {
             //Not working currently
             SaveCity();
@@ -105,25 +106,29 @@ public class CityBuilderWindow : EditorWindow
         GUILayout.EndHorizontal();
         #endregion
 
-        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-        EditorGUILayout.Space(5);
-
-        #region Contains code to allow user to change their city name and street length (Unfinished)
-        GUILayout.Label("Edit Your City Details: UNFINISHED", Header);
-
-        EditorGUILayout.Space(15);
-        EditorGUILayout.LabelField("Change Selected City Name:", myStyle);
-        newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
-
-        EditorGUILayout.Space(15);
-        EditorGUILayout.LabelField("Change Your Street Length:", myStyle);
-        newStreetLength = EditorGUILayout.TextField(newStreetLength, GUILayout.Width(400), GUILayout.Height(25));
-
-        EditorGUILayout.Space(5);
-        if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
+        if (Selection.count != 0 && Selection.activeGameObject.tag== "District")
         {
-            SaveCityDetails();
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            EditorGUILayout.Space(5);
+
+            #region Contains code to allow user to change their city name and street length (Unfinished)
+            GUILayout.Label("Edit Your District Details: UNFINISHED", Header);
+
+            EditorGUILayout.Space(15);
+            EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
+            newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
+
+            EditorGUILayout.Space(15);
+            EditorGUILayout.LabelField("Change Your Street Length:", myStyle);
+            newStreetLength = EditorGUILayout.TextField(newStreetLength, GUILayout.Width(400), GUILayout.Height(25));
+
+            EditorGUILayout.Space(5);
+            if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
+            {
+                SaveCityDetails();
+            }
         }
+        
         #endregion
 
     }
@@ -143,13 +148,18 @@ public class CityBuilderWindow : EditorWindow
             Debug.LogError("Error: Please choose a size for the district");
             return;
         }
-        if(objectBaseName == string.Empty)
-        {
-            objectBaseName = districtNames[gridIntDistrict];
-        }
+        
         if (!cityParent)
         {
-            cityParent = new GameObject("City");
+            if(cityName != "")
+            {
+                cityParent = new GameObject(cityName);
+                
+            }
+            else
+            {
+                cityParent = new GameObject("City");
+            }
             cityParent.AddComponent<CityWhole>();
 
             GameObject roadPlacer = Instantiate(Resources.Load("prefabs/Road Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
@@ -166,19 +176,19 @@ public class CityBuilderWindow : EditorWindow
 
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation, cityParent.transform);
         Undo.RegisterCreatedObjectUndo(newObject, "Spawn District");
-        newObject.name = objectBaseName + objectID;
+        newObject.name = districtNames[gridIntDistrict];
         newObject.transform.GetChild(0).localScale = newObject.transform.GetChild(0).localScale * (gridIntSize + 1);
-        newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + objectBaseName, typeof(Material)) as Material;
+        newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + districtNames[gridIntDistrict], typeof(Material)) as Material;
 
         //newObject.transform.GetChild(2).GetComponent<BuildingPlacer>().buildingCollection = (BuildingCollection)Resources.Load("Building Collections/" + objectBaseName + " Buildings");
-        newObject.GetComponent<CityZone>().buildingCollection = Resources.Load("Building Collections/" + objectBaseName + " Buildings") as BuildingCollection;
+        newObject.GetComponent<CityZone>().buildingCollection = Resources.Load("Building Collections/" + districtNames[gridIntDistrict] + " Buildings") as BuildingCollection;
 
         objectID++;
 
         if(gridIntSize == 0)
         {
-            newObject.GetComponent<CityZone>().DistrictSize = 5;
-            newObject.GetComponent<CityZone>().IterLimit = 2;
+            newObject.GetComponent<CityZone>().DistrictSize = 6;
+            newObject.GetComponent<CityZone>().IterLimit = 1;
         }
         if (gridIntSize == 1)
         {
@@ -194,7 +204,7 @@ public class CityBuilderWindow : EditorWindow
         //district spawns at (0,0) so needs to be moved to a space where it is not overlapping with other districts
         MoveDistrict(newObject, gridIntSize);
 
-        objectBaseName = "";
+        
     }
 
 
@@ -232,5 +242,8 @@ public class CityBuilderWindow : EditorWindow
     {
         Undo.PerformRedo();
     }
+
+    //when selecting district this code will show details about it for the user to change.
+    
 
 }
