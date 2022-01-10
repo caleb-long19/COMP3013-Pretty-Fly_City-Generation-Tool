@@ -185,6 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4397385680669979460}
   - component: {fileID: 5146747353772507592}
+  - component: {fileID: 1286987265251714009}
   m_Layer: 0
   m_Name: District Prefab
   m_TagString: District
@@ -225,8 +226,24 @@ MonoBehaviour:
   GenerationSystem: {fileID: 2910618953159315987}
   roads: {fileID: 5407272389639719431}
   buildings: {fileID: 4166972586961982691}
-  prefabPool: []
-  prefabRandom: []
+  buildingCollection: {fileID: 0}
+  localRoadCoordinates: []
+--- !u!114 &1286987265251714009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801962143305548694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7be03899383f949958d3aeb7b7b3ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapToGrid: 1
+  snapValue: 30
+  sizeToGrid: 0
+  sizeValue: 0.25
 --- !u!1 &8315532377122921436
 GameObject:
   m_ObjectHideFlags: 0
