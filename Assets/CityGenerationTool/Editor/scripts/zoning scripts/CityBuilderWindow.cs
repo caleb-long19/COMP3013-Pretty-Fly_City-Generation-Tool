@@ -159,6 +159,9 @@ public class CityBuilderWindow : EditorWindow
             GameObject buildingPlacer = Instantiate(Resources.Load("prefabs/Building Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
             buildingPlacer.name = "Building Placer";
             cityParent.GetComponent<CityWhole>().BuildingPlacer = buildingPlacer.GetComponent<BuildingPlacer>();
+
+            GameObject gridManager = Instantiate(Resources.Load("prefabs/Grid Manager") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
+            gridManager.name = "Grid Manager";
         }
 
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation, cityParent.transform);
@@ -189,16 +192,15 @@ public class CityBuilderWindow : EditorWindow
         }
 
         //district spawns at (0,0) so needs to be moved to a space where it is not overlapping with other districts
-        moveDistrict(newObject);
+        MoveDistrict(newObject, gridIntSize);
 
         objectBaseName = "";
     }
 
 
-    private void moveDistrict(GameObject newDistrict)
+    private void MoveDistrict(GameObject newDistrict, int districtSize)
     {
-        //this method will move a district in the x direction until it is no longer overlapping
-        // the plan is to eventually make it move in the direction which requires the least distance to find space 
+        newDistrict.transform.parent.GetComponentInChildren<GridManager>().SortDistrict(newDistrict, districtSize);
     }
 
 
