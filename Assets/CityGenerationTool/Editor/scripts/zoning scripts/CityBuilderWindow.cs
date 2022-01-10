@@ -205,6 +205,7 @@ public class CityBuilderWindow : EditorWindow
         {
             newObject.GetComponent<CityZone>().DistrictSize = 8;
             newObject.GetComponent<CityZone>().IterLimit = 2;
+            newObject.GetComponent<DistrictSnap>().isMedium = true;
         }
         if (gridIntSize == 2)
         {
