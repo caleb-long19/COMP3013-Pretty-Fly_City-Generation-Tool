@@ -1,6 +1,7 @@
 # Blender v3.0.0 OBJ File: 'Small_U-Turn.blend'
 # www.blender.org
 mtllib Small_U-Turn.mtl
+o BezierCurve
 v -4.093903 0.000000 0.000000
 v -3.461352 0.000000 -0.000000
 v -2.961891 0.000000 -0.000000
@@ -74,6 +75,7 @@ l 33 34
 l 34 35
 l 35 36
 l 36 37
+o Street_Straight_Cube.001_Street_Straight_Cube.008
 v 0.671245 0.100000 0.607996
 v 0.216999 0.100000 1.095957
 v 0.216999 -0.100000 1.095957

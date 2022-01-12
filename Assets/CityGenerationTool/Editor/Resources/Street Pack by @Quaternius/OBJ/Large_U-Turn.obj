@@ -1,6 +1,7 @@
 # Blender v3.0.0 OBJ File: 'Large_U-Turn.blend'
 # www.blender.org
 mtllib Large_U-Turn.mtl
+o BezierCurve_BezierCurve.006
 v -2.000000 0.000000 0.000000
 v -1.149608 0.000000 -0.000000
 v -0.670380 0.000000 -0.000000
@@ -74,6 +75,7 @@ l 33 34
 l 34 35
 l 35 36
 l 36 37
+o Street_Straight_Cube.007_Street_Straight_Cube.046
 v -0.489258 0.100000 6.666848
 v -0.511240 0.100000 6.000544
 v -0.511240 -0.100000 6.000544

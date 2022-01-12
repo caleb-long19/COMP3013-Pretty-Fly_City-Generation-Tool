@@ -1,6 +1,7 @@
 # Blender v3.0.0 OBJ File: 'Small_90-Degree_Turn_v2.blend'
 # www.blender.org
 mtllib Small_90-Degree_Turn_v2.mtl
+o BezierCurve_BezierCurve.003
 v -1.000000 0.000000 0.000000
 v -0.327130 0.000000 0.002315
 v 0.278389 0.000000 0.018518
@@ -26,6 +27,7 @@ l 9 10
 l 10 11
 l 11 12
 l 12 13
+o Street_Straight_Cube.001_Street_Straight_Cube.023
 v 1.748329 0.100000 0.701483
 v 1.384428 0.100000 1.260072
 v 1.384428 -0.100000 1.260072

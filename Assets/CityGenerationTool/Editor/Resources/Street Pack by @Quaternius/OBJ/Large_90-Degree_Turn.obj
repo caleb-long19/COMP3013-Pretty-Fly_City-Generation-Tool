@@ -1,6 +1,7 @@
 # Blender v3.0.0 OBJ File: 'Large_90-Degree_Turn.blend'
 # www.blender.org
 mtllib Large_90-Degree_Turn.mtl
+o BezierCurve_BezierCurve.001
 v -1.000000 0.000000 0.000000
 v -0.139237 0.000000 0.022569
 v 0.672060 0.000000 0.097222
@@ -26,6 +27,7 @@ l 9 10
 l 10 11
 l 11 12
 l 12 13
+o Street_Straight_Cube.001_Street_Straight_Cube.002
 v 2.691869 0.100000 1.094184
 v 2.343478 0.100000 1.662575
 v 2.343478 -0.100000 1.662575
