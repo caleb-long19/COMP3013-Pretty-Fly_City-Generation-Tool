@@ -1,46 +1,85 @@
-# Dynamic City Generation Tool - COMP3013 Group Project
+# <p align="center"> Dynamic City Generation Tool </p>
 
-## Project Background
-The purpose of our project is to allow game developers to create towns/cities using a town/city generation brush tool. We want to develop a unity tool which decreases the time it would take to create an immersive video game world. Most generation tools restrict developers by simply randomly generating buildings within specific X/Y coordinates. We wish to remove these restrictions and allow users to design their worlds like painting a canvas. Below is a list of features which have been discussed in our group.
+## Project Brief
+The purpose of our project is to allow game developers to create towns/cities using a town/city generation tool. We want to develop a unity tool which decreases the time it would take to create an immersive video game world. We wish to remove many restrictions and allow users to design their worlds as they please. Below is a list of features which have been discussed in our group. 
 
-### Team Members
+### Team Members & Roles 
  * James Mountford - Techincal Director
- * Luke White - QA = UX Guru
+ * Luke White - QA + UX Guru
  * Caleb Long - Project Manager
 
-### Features
-* Use Brushes to assign different town/city zones using a Unity Editor Window!
-  * Downtown Buildings
-    * Skyscrapers
-  * Central Business District
-  * Residential
-    * Flats
-    * Houses
-  * Ghetto
-    * Flats
-    * Houses
-  * Industrial
-    * Factories
-    * Dumps
-  * Green Zone
+### Description 
+An easy to use developer tool for quickly generating open world city scapes for prototyping or using in a project of your choosing. Spawn districts, randomly generate roads and buildings using the L-System to help simulate real life roads. 
+
+### Old Features - MVP 
+* Use buttons to assign different districts in the unity editor window 
+  * Downtown Buildings 
+    * Skyscrapers 
+  * Central Business District 
+    * Banks 
+  * Residential 
+    * Flats 
+    * Houses 
+  * Industrial 
+    * Factories 
+  * Slums 
+    * Houses 
+    * Flats 
+  * Green zone 
     * Parks
-    * Grass
-    * Trees
-  * Water
-    * Fresh Water
-    * Ocean Water
-  * Special Buildings
-    * Stadiums
+    * Grass 
+    * Trees 
+  * Special Buildings 
+    * Stadiums 
+    * Churches  
+ 
+* Can fine tune aspects of brushes such as density and object height 
+* Click generate world when finished to see the city come to life 
+* Add your own assets to brushes. Be able to customise each district and design your world. 
+* Undo Button which erases the previous action 
+* Interconnecting Road System 
+
+### Updated Features - MAP
+* Use buttons to assign different districts in the unity editor window 
+  * Downtown Buildings 
+    * Skyscrapers 
+  * Central Business District 
+    * Banks 
+    * Skyscrapers 
+  * Residential 
+    * Flats 
+    * Houses 
+  * Industrial 
+    * Factories 
+    * Dumps 
+  * Slums 
+    * Houses 
+    * Flats 
+  * Green Zone 
+    * Parks 
+    * Grass 
+    * Trees 
+  * Special Buildings 
+    * Stadiums 
     * Churches
-* Fine Tune your brush by adjusting the Density and Object Height
-* Add your own assets to the brushes and build/design your own town/city with ease
-* Made a mistake? Use the Undo button to easily make your problems disappear
-* When you're finished, click the Generate button to bring your world to life
+
+* A wide variety of districts to choose from 
+* Spawn District Grids and organise them however you want 
+* Snap Grid System to make connecting grids easier and hassle free 
+* Interconnecting Road System (L-System Generated) 
+* Choose the size of your district 
+* Randomly generate Buildings Models & Roads within your District Grids with the press of a button 
+* Curved Road Models to help provide a more natural road system 
+* Simplistic UI is both informative and easy to use 
+* Name Your City 
+* Edit your city details after your city has been generated 
+* Save your city as a prefab and use it whenever you like! 
+* Undo/Redo Your Mistakes 
 
 ### Roadmap Features
-* Interconnecting Road System - To automatically generate roads within your city to help reduce development time
-* Vehicle AI - To help reduce the time it takes for developers to create a lively cityscape
+* Vehicle AI - Allow the city to have cars roaming around to feel more like a city and save devs more time
 
 ### Software Programs Used
 * Unity
 * Blender
+* GitHub

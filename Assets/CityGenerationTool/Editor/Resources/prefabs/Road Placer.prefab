@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4905261282905022310}
   m_Layer: 0
   m_Name: Road Placer
-  m_TagString: Untagged
+  m_TagString: CG_DAP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,8 +48,8 @@ MonoBehaviour:
   road3Way: {fileID: 200822887792251113, guid: c3715d53368ec9b47acbaabaca100510, type: 3}
   road4Way: {fileID: 200822887792251113, guid: 96949970dbec5d241b0173e4672ff66e, type: 3}
   roadEnd: {fileID: 200822887792251113, guid: 63a4d1f10a0fe3b4ea6ff7ac3e82307f, type: 3}
-  roadSmallU: {fileID: 5252258273211139886, guid: 898877fecfed1a14aa3c26574c8904ff, type: 3}
-  roadBigU: {fileID: 5252258273211139886, guid: e1f43d7ad1d9a66458eaf8693c2437c1, type: 3}
-  roadSmall90: {fileID: 5252258273211139886, guid: f111b3e884ad322438da5d2efc991e7f, type: 3}
-  roadBig90: {fileID: 5252258273211139886, guid: c8de6bbfc19436447a1e759d79a8c995, type: 3}
+  roadSmallU: {fileID: 0}
+  roadBigU: {fileID: 0}
+  roadSmall90: {fileID: 0}
+  roadBig90: {fileID: 0}
   allRoads: []

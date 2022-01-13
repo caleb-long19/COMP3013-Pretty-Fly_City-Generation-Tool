@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 946505401391991690}
   m_Layer: 0
   m_Name: Building Placer
-  m_TagString: Untagged
+  m_TagString: CG_DAP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,4 +43,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c84de4c51373a45ab20ec7405e3f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingCollection: {fileID: 11400000, guid: d1455c5451587b84597e2528a97080c7, type: 2}

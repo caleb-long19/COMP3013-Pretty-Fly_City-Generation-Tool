@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class CityBuilderWindow : EditorWindow
+public class CityBuilderWindow : EditorWindow 
 {
     private string cityName = "";
     private string newDistrictName = "";
     private string newStreetLength = "";
+    private string newCityName = "";
 
     private int objectID = 1;
     private GameObject districtToSpawn;
@@ -81,12 +82,6 @@ public class CityBuilderWindow : EditorWindow
         if (GUILayout.Button("Generate City", GUILayout.Width(300), GUILayout.Height(40)))
         {
             Generate();
-        }
-
-        if (GUILayout.Button("Save Generated City/Cities", GUILayout.Width(300), GUILayout.Height(30)))
-        {
-            //Not working currently
-            SaveCity();
         }
         #endregion
 
@@ -171,11 +166,13 @@ public class CityBuilderWindow : EditorWindow
             if(cityName != "")
             {
                 cityParent = new GameObject(cityName);
+                cityParent.tag = "City";
                 
             }
             else
             {
                 cityParent = new GameObject("City");
+                cityParent.tag = "City";
             }
             cityParent.AddComponent<CityWhole>();
             cityParent.tag = "City";
@@ -249,17 +246,23 @@ public class CityBuilderWindow : EditorWindow
     }
 
 
-    private void SaveCity()
+    private void SaveCity(string cityName, GameObject selectedCity)
     {
+        selectedCity.name = cityName;
+        var ctiyChilds = GameObject.FindGameObjectsWithTag("CG_DAP");
+
         //Code to save generated city and prevent it from being overwritten when the user clicks generate city again
+        string saveLocation = "Assets/CityGenerationTool/Editor/CityPrefabs/" + selectedCity.name + ".prefab";
+
+        foreach (GameObject child in ctiyChilds)
+        {
+            DestroyImmediate(child);
+        }
+
+        // create an empty prefab in project
+        PrefabUtility.SaveAsPrefabAssetAndConnect(selectedCity, saveLocation, InteractionMode.UserAction);
+
     }
-
-
-    private void SaveCityDetails()
-    {
-        //Code used to save the new details provided by the user e.g. new city name or street length
-    }
-
 
     private void CityBuilderUndo() 
     {
