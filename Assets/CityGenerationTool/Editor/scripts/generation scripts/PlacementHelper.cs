@@ -11,9 +11,9 @@ public static class PlacementHelper
 
         int count = 0;
 
-        for (int x = -4; x <= 4; x = x += 2)
+        for (int x = -6; x <= 6; x = x += 2)
         {
-            for (int z = -4; z <= 4; z += 2)
+            for (int z = -6; z <= 6; z += 2)
             {
                 if (collection.Contains(position + new Vector3Int(x, 0, z)))
                 {

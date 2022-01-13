@@ -36,8 +36,8 @@ public class TerrainGeneration : MonoBehaviour
                 if(roadCount == 0)
                 {
                     
-
-                    vertices[i] = new Vector3(x * 2, UnityEngine.Random.Range(0,3) , z * 2);
+                    
+                    vertices[i] = new Vector3(x * 2, UnityEngine.Random.Range(0, 3) , z * 2);
                 }
                 else
                 {
