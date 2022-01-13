@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class CityBuilderWindow : EditorWindow
+public class CityBuilderWindow : EditorWindow 
 {
     private string cityName = "";
     private string newDistrictName = "";
     private string newStreetLength = "";
+    private string newCityName = "";
 
     private int objectID = 1;
     private GameObject districtToSpawn;
@@ -81,12 +82,6 @@ public class CityBuilderWindow : EditorWindow
         {
             Generate();
         }
-
-        if (GUILayout.Button("Save Generated City/Cities", GUILayout.Width(300), GUILayout.Height(30)))
-        {
-            //Not working currently
-            SaveCity();
-        }
         #endregion
 
 
@@ -106,13 +101,29 @@ public class CityBuilderWindow : EditorWindow
         GUILayout.EndHorizontal();
         #endregion
 
-        if (Selection.count != 0 && Selection.activeGameObject.tag== "District")
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        EditorGUILayout.Space(5);
+
+        if (Selection.count != 0 && Selection.activeGameObject.tag == "City")
         {
-            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-            EditorGUILayout.Space(5);
+
+            EditorGUILayout.Space(15);
+            EditorGUILayout.LabelField("Please Choose The Name Of Your City Prefab:", myStyle);
+            newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
+
+            if (GUILayout.Button("Save Generated City As Prefab", GUILayout.Width(300), GUILayout.Height(30)))
+            {
+                GameObject selectedCity;
+                selectedCity = Selection.activeGameObject;
+                SaveCity(newCityName, selectedCity);
+            }
+        }
+
+        if (Selection.count != 0 && Selection.activeGameObject.tag == "District")
+        {
 
             #region Contains code to allow user to change their city name and street length (Unfinished)
-            GUILayout.Label("Edit Your District Details: UNFINISHED", Header);
+            GUILayout.Label("Edit Your District Details:", Header);
 
             EditorGUILayout.Space(15);
             EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
@@ -165,11 +176,13 @@ public class CityBuilderWindow : EditorWindow
             if(cityName != "")
             {
                 cityParent = new GameObject(cityName);
+                cityParent.tag = "City";
                 
             }
             else
             {
                 cityParent = new GameObject("City");
+                cityParent.tag = "City";
             }
             cityParent.AddComponent<CityWhole>();
 
@@ -232,17 +245,23 @@ public class CityBuilderWindow : EditorWindow
     }
 
 
-    private void SaveCity()
+    private void SaveCity(string cityName, GameObject selectedCity)
     {
+        selectedCity.name = cityName;
+        var ctiyChilds = GameObject.FindGameObjectsWithTag("CG_DAP");
+
         //Code to save generated city and prevent it from being overwritten when the user clicks generate city again
+        string saveLocation = "Assets/CityGenerationTool/Editor/CityPrefabs/" + selectedCity.name + ".prefab";
+
+        foreach (GameObject child in ctiyChilds)
+        {
+            DestroyImmediate(child);
+        }
+
+        // create an empty prefab in project
+        PrefabUtility.SaveAsPrefabAssetAndConnect(selectedCity, saveLocation, InteractionMode.UserAction);
+
     }
-
-
-    private void SaveCityDetails()
-    {
-        //Code used to save the new details provided by the user e.g. new city name or street length
-    }
-
 
     private void CityBuilderUndo() 
     {

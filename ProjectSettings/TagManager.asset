@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - District
+  - City
+  - CG_DAP
   layers:
   - Default
   - TransparentFX

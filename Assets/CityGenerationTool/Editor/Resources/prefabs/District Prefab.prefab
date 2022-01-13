@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8486356847190738796}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: CG_DAP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 2910618953159315987}
   m_Layer: 0
   m_Name: LSystem
-  m_TagString: Untagged
+  m_TagString: CG_DAP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,10 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7be03899383f949958d3aeb7b7b3ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapToGrid: 1
   snapValue: 30
-  sizeToGrid: 0
-  sizeValue: 0.25
+  isMedium: 0
 --- !u!1 &8315532377122921436
 GameObject:
   m_ObjectHideFlags: 0
