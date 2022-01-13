@@ -16,24 +16,30 @@ public class DistrictSnap : MonoBehaviour
 
     Vector3 RoundTransform(Vector3 v, float snapValue) 
     {
-        if (isMedium)
-        {
-            return new Vector3
-            (
-                (snapValue * Mathf.Round(v.x / snapValue)) + 15.0f,
-                snapValue * Mathf.Round(v.y / snapValue),
-                (snapValue * Mathf.Round(v.z / snapValue)) + 15.0f
-            );
-        }
-        else 
-        {
-            return new Vector3
+        //    if (isMedium)
+        //    {
+        //        return new Vector3
+        //        (
+        //            (snapValue * Mathf.Round(v.x / snapValue)) + 15.0f,
+        //            snapValue * Mathf.Round(v.y / snapValue),
+        //            (snapValue * Mathf.Round(v.z / snapValue)) + 15.0f
+        //        );
+        //    }
+        //    else 
+        //    {
+        //        return new Vector3
+        //        (
+        //            snapValue * Mathf.Round(v.x / snapValue),
+        //            snapValue * Mathf.Round(v.y / snapValue),
+        //            snapValue * Mathf.Round(v.z / snapValue)
+        //        );
+        //    }
+        return new Vector3
             (
                 snapValue * Mathf.Round(v.x / snapValue),
                 snapValue * Mathf.Round(v.y / snapValue),
                 snapValue * Mathf.Round(v.z / snapValue)
             );
-        }
     }
 #endif
 }

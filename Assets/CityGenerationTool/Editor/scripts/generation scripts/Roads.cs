@@ -80,7 +80,7 @@ public class Roads : MonoBehaviour
         {
             var road = Instantiate(roadSmallU, position, Quaternion.identity, parent);
         }
-        if (curveType == "biglU")
+        if (curveType == "bigU")
         {
             var road = Instantiate(roadBigU, position, Quaternion.identity, parent);
         }

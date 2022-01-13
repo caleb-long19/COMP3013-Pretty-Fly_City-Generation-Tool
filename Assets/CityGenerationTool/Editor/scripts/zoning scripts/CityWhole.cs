@@ -15,9 +15,14 @@ public class CityWhole : MonoBehaviour
 
     [SerializeField] private Roads roadPlacer;
     [SerializeField] private BuildingPlacer buildingPlacer;
+    [SerializeField] private TerrainGeneration terrainHelper;
 
     public Roads RoadPlacer { get => roadPlacer; set => roadPlacer = value; }
     public BuildingPlacer BuildingPlacer { get => buildingPlacer; set => buildingPlacer = value; }
+    public TerrainGeneration TerrainHelper { get => terrainHelper; set => terrainHelper = value; }
+
+    private int xSize;
+    private int zSize;
 
     public void Generate()
     {
@@ -46,7 +51,26 @@ public class CityWhole : MonoBehaviour
         {
             buildingPlacer.PlaceStructuresAroundRoad(dist.GetComponent<CityZone>().localRoadCoordinates, roadPlacer.allRoads, dist.GetComponent<CityZone>().buildingCollection, dist.GetComponent<CityZone>().buildings);
         }
+
+
+        ReSizeTerrain();
+        terrainHelper.generate((xSize + 32) / 2, (zSize + 32) / 2, roadPlacer.allRoads) ;
         
+    }
+
+    private void ReSizeTerrain()
+    {
+        List<Vector3Int> roads = roadPlacer.allRoads;
+
+        roads.Sort((a, b) => a.x.CompareTo(b.x));
+        xSize = roads[roads.Count - 1].x - roads[0].x;
+        int x = roads[0].x;
+
+        roads.Sort((a, b) => a.z.CompareTo(b.z));
+        zSize = roads[roads.Count - 1].z - roads[0].z;
+        int z = roads[0].z;
+
+        terrainHelper.transform.position = new Vector3Int(x - 16, 0, z - 16);
     }
     
 

@@ -5,6 +5,28 @@ using UnityEngine;
 
 public static class PlacementHelper
 {
+
+    public static int findRoadsForTerrain(Vector3Int position, List<Vector3Int> collection)
+    {
+
+        int count = 0;
+
+        for (int x = -4; x <= 4; x = x += 2)
+        {
+            for (int z = -4; z <= 4; z += 2)
+            {
+                if (collection.Contains(position + new Vector3Int(x, 0, z)))
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+        
+        
+    }
+
     public static List<Direction> findNeighbour(Vector3Int position, List<Vector3Int> collection)
     {
         

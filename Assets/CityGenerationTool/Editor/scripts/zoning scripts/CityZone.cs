@@ -167,6 +167,7 @@ public class CityZone : MonoBehaviour
                     if (Random.Range(0, 2) == 0)
                     {
                         roadPlacer.PlaceCurvedStreet(currentPosition, Vector3Int.RoundToInt(direction), "bigU", "left", roads);
+                        
                     }
                     else
                     {
@@ -210,7 +211,7 @@ public class CityZone : MonoBehaviour
 
     public enum referenceLetters 
     {
-        unkown = '1',
+        
         save = '[',
         load = ']',
         draw = 'F',

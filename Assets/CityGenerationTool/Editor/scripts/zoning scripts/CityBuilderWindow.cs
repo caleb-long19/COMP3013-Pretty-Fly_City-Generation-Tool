@@ -77,6 +77,7 @@ public class CityBuilderWindow : EditorWindow
 
         EditorGUILayout.Space(10);
         GUILayout.Label("Generate Your City Inside The District:", myStyle);
+       //GUILayout.Toggle("Generate With Terrain", )
         if (GUILayout.Button("Generate City", GUILayout.Width(300), GUILayout.Height(40)))
         {
             Generate();
@@ -105,42 +106,47 @@ public class CityBuilderWindow : EditorWindow
         }
         GUILayout.EndHorizontal();
         #endregion
-
-        if (Selection.count != 0 && Selection.activeGameObject.tag== "District")
+        if(Selection.count != 0)
         {
-            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-            EditorGUILayout.Space(5);
-
-            #region Contains code to allow user to change their city name and street length (Unfinished)
-            GUILayout.Label("Edit Your District Details: UNFINISHED", Header);
-
-            EditorGUILayout.Space(15);
-            EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
-            newDistrictName = EditorGUILayout.TextField(newDistrictName, GUILayout.Width(400), GUILayout.Height(25));
-
-            EditorGUILayout.Space(15);
-            EditorGUILayout.LabelField("Change Your Street Length:", myStyle);
-            newStreetLength = EditorGUILayout.TextField(newStreetLength, GUILayout.Width(400), GUILayout.Height(25));
-
-
-            //street density
-
-            //building density
-
-            //
-
-
-            EditorGUILayout.Space(5);
-            if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
+            if (Selection.activeGameObject.tag == "District")
             {
-                Selection.activeGameObject.name = newDistrictName;
+                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                EditorGUILayout.Space(5);
+
+                #region Contains code to allow user to change their city name and street length (Unfinished)
+                GUILayout.Label("Edit Your District Details: UNFINISHED", Header);
+
+                EditorGUILayout.Space(15);
+                EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
+                newDistrictName = EditorGUILayout.TextField(newDistrictName, GUILayout.Width(400), GUILayout.Height(25));
+
+                EditorGUILayout.Space(15);
+                EditorGUILayout.LabelField("Change Your Street Length:", myStyle);
+                newStreetLength = EditorGUILayout.TextField(newStreetLength, GUILayout.Width(400), GUILayout.Height(25));
 
 
-                //Selection.activeGameObject = null;
+                //street density
+
+                //building density
+
+                //
+
+
+                EditorGUILayout.Space(5);
+                if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
+                {
+                    Selection.activeGameObject.name = newDistrictName;
+
+
+                    //Selection.activeGameObject = null;
+                }
+
+
             }
+
+            #endregion
         }
-        
-        #endregion
+
 
     }
 
@@ -172,6 +178,7 @@ public class CityBuilderWindow : EditorWindow
                 cityParent = new GameObject("City");
             }
             cityParent.AddComponent<CityWhole>();
+            cityParent.tag = "City";
 
             GameObject roadPlacer = Instantiate(Resources.Load("prefabs/Road Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
             roadPlacer.name = "Road Placer";
@@ -183,11 +190,20 @@ public class CityBuilderWindow : EditorWindow
 
             GameObject gridManager = Instantiate(Resources.Load("prefabs/Grid Manager") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
             gridManager.name = "Grid Manager";
+
+            GameObject terrainHelper = Instantiate(Resources.Load("prefabs/Terrain Helper") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
+            terrainHelper.name = "Terrain Helper";
+            cityParent.GetComponent<CityWhole>().TerrainHelper = terrainHelper.GetComponent<TerrainGeneration>();
         }
 
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation, cityParent.transform);
+        newObject.transform.GetChild(3).GetComponent<LSystemGenerator>().rules[0] = (Rule)Resources.Load("rules/Rule " + districtNames[gridIntDistrict]);
         Undo.RegisterCreatedObjectUndo(newObject, "Spawn District");
         newObject.name = districtNames[gridIntDistrict];
+
+        
+
+
         newObject.transform.GetChild(0).localScale = newObject.transform.GetChild(0).localScale * (gridIntSize + 1);
         newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + districtNames[gridIntDistrict], typeof(Material)) as Material;
 
@@ -228,6 +244,7 @@ public class CityBuilderWindow : EditorWindow
 
     private void Generate()
     {
+        cityParent = GameObject.FindGameObjectWithTag("City");
         cityParent.GetComponent<CityWhole>().Generate();
     }
 
