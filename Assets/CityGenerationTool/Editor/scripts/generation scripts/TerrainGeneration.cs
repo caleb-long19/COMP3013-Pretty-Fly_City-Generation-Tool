@@ -9,6 +9,12 @@ public class TerrainGeneration : MonoBehaviour
 
     Vector3[] vertices;
     int[] triangles;
+    Color[] colors;
+
+    public Gradient gradient;
+
+    private float minHeight;
+    private float maxHeight;
 
     List<Vector3Int> allRoads;
 
@@ -25,24 +31,31 @@ public class TerrainGeneration : MonoBehaviour
     {
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
 
-        
-
         for (int i = 0, z = 0; z <= zSize; z++)
         {
             for (int x = 0; x <= xSize; x++)
             {
                 int roadCount = PlacementHelper.findRoadsForTerrain(new Vector3Int(x * 2, 0, z * 2) + Vector3Int.RoundToInt(transform.position), allRoads);
 
-                if(roadCount == 0)
+                float y;
+                if (roadCount == 0)
                 {
-                    
-                    
-                    vertices[i] = new Vector3(x * 2, UnityEngine.Random.Range(0, 3) , z * 2);
+                    y = UnityEngine.Random.Range(0, 3);
                 }
                 else
                 {
-                    vertices[i] = new Vector3(x * 2, 0, z * 2);
+                    y = 0;
                     
+                }
+                vertices[i] = new Vector3(x * 2, y, z * 2);
+
+                if(y> maxHeight)
+                {
+                    maxHeight = y;
+                }
+                if (y < minHeight)
+                {
+                    minHeight = y;
                 }
                 i++;
 
@@ -73,6 +86,19 @@ public class TerrainGeneration : MonoBehaviour
         }
 
 
+        colors = new Color[vertices.Length];
+
+        for (int i = 0, z = 0; z <= zSize; z++)
+        {
+            for (int x = 0; x <= xSize; x++)
+            {
+                float height = Mathf.InverseLerp(minHeight,maxHeight, vertices[i].y);
+                colors[i] = gradient.Evaluate(height);
+
+                i++;
+            }
+        }
+
         this.transform.position += new Vector3(0, -0.1f, 0);
 
 
@@ -85,19 +111,13 @@ public class TerrainGeneration : MonoBehaviour
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+        mesh.colors = colors;
         mesh.RecalculateNormals();
     }
 
-    private void OnDrawGizmos()
+    public void clear()
     {
-        if (vertices == null)
-        {
-            return;
-        }
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            Gizmos.DrawSphere(vertices[i] + transform.position, .1f);
-        }
+        mesh.Clear();
     }
 
 

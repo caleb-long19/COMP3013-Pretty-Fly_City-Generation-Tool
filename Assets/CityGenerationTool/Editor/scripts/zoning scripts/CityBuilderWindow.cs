@@ -14,6 +14,7 @@ public class CityBuilderWindow : EditorWindow
     private GameObject districtToSpawn;
     private GameObject cityParent;
     private bool distSelected;
+    private bool genTerrain;
 
     int gridIntDistrict = -1;
     int gridIntSize = -1;
@@ -78,7 +79,7 @@ public class CityBuilderWindow : EditorWindow
 
         EditorGUILayout.Space(10);
         GUILayout.Label("Generate Your City Inside The District:", myStyle);
-       //GUILayout.Toggle("Generate With Terrain", )
+        genTerrain = EditorGUILayout.Toggle("Generate With Terrain", genTerrain);
         if (GUILayout.Button("Generate City", GUILayout.Width(300), GUILayout.Height(40)))
         {
             Generate();
@@ -90,6 +91,11 @@ public class CityBuilderWindow : EditorWindow
         GUILayout.Space(20);
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
+        if (GUILayout.Button("Clear", GUILayout.Width(100), GUILayout.Height(35)))
+        {
+            CityBuilderClear();
+        }
+
         if (GUILayout.Button("Undo", GUILayout.Width(100), GUILayout.Height(35)))
         {
             CityBuilderUndo();
@@ -242,7 +248,7 @@ public class CityBuilderWindow : EditorWindow
     private void Generate()
     {
         cityParent = GameObject.FindGameObjectWithTag("City");
-        cityParent.GetComponent<CityWhole>().Generate();
+        cityParent.GetComponent<CityWhole>().Generate(genTerrain);
     }
 
 
@@ -262,6 +268,13 @@ public class CityBuilderWindow : EditorWindow
         // create an empty prefab in project
         PrefabUtility.SaveAsPrefabAssetAndConnect(selectedCity, saveLocation, InteractionMode.UserAction);
 
+    }
+
+    private void CityBuilderClear()
+    {
+        cityParent.GetComponent<CityWhole>().RoadPlacer.Reset();
+        cityParent.GetComponent<CityWhole>().BuildingPlacer.Reset();
+        cityParent.GetComponent<CityWhole>().TerrainHelper.clear();
     }
 
     private void CityBuilderUndo() 

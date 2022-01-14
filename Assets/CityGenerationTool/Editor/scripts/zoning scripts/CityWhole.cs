@@ -24,7 +24,7 @@ public class CityWhole : MonoBehaviour
     private int xSize;
     private int zSize;
 
-    public void Generate()
+    public void Generate(bool genTerrain)
     {
         int i =0;
         Res();
@@ -52,9 +52,17 @@ public class CityWhole : MonoBehaviour
             buildingPlacer.PlaceStructuresAroundRoad(dist.GetComponent<CityZone>().localRoadCoordinates, roadPlacer.allRoads, dist.GetComponent<CityZone>().buildingCollection, dist.GetComponent<CityZone>().buildings);
         }
 
+        if (genTerrain)
+        {
+            ReSizeTerrain();
+            terrainHelper.generate((xSize + 32) / 2, (zSize + 32) / 2, roadPlacer.allRoads) ;
+        }
+        else
+        {
+            terrainHelper.clear();
+        }
 
-        ReSizeTerrain();
-        terrainHelper.generate((xSize + 32) / 2, (zSize + 32) / 2, roadPlacer.allRoads) ;
+        
         
     }
 
