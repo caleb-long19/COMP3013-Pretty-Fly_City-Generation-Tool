@@ -8,9 +8,12 @@ public class BuildingType
     [SerializeField]
     private GameObject[] prefabs;
     public int sizeRequired;
+    public bool isStackable;
     public int quantity;
     public int quantityAlreadyPlaced;
 
+    
+    
     public GameObject GetPrefab()
     {
         quantityAlreadyPlaced++;

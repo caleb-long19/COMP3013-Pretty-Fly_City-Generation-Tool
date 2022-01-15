@@ -11,6 +11,7 @@ public class CityZone : MonoBehaviour
     private int districtSize;
     private int iterLimit;
     private float angle = 90;
+    private int buildingHeight = 3;
 
     public BuildingCollection buildingCollection;
     public List<Vector3Int> localRoadCoordinates;
@@ -34,6 +35,8 @@ public class CityZone : MonoBehaviour
     }
 
     public int IterLimit { get => iterLimit; set {iterLimit = value; GenerationSystem.iterationLimit = value; }  }
+
+    public int BuildingHeight { get => buildingHeight; set => buildingHeight = value; }
 
     public void Generate(GameObject district, Roads roadPlacer, GameObject connectingDistrict)
     {

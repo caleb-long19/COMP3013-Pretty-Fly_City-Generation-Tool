@@ -28,9 +28,16 @@ public class CityBuilderWindow : EditorWindow
     {
         GetWindow(typeof(CityBuilderWindow)); // showing the editor window
 
+        
+
         tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
         tex.SetPixel(0, 0, new Color32(204, 204, 196, 255));
         tex.Apply();
+    }
+
+    private void Awake()
+    {
+        cityParent = GameObject.FindGameObjectWithTag("City");
     }
 
 

@@ -17,10 +17,12 @@ MonoBehaviour:
     - {fileID: 9040599290667148103, guid: f40d1373afa1b514098ba9d26c9f389d, type: 3}
     - {fileID: 9040599290667148103, guid: eb92224675153c348860993eb5b366de, type: 3}
     sizeRequired: 2
+    isStackable: 1
     quantity: 16
     quantityAlreadyPlaced: 16
   - prefabs:
     - {fileID: 9040599290667148103, guid: eb92224675153c348860993eb5b366de, type: 3}
     sizeRequired: 1
+    isStackable: 0
     quantity: 10
     quantityAlreadyPlaced: 10
