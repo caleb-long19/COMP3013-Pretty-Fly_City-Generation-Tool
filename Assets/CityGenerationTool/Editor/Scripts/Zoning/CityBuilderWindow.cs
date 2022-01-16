@@ -126,70 +126,72 @@ public class CityBuilderWindow : EditorWindow
 
         if (Selection.count != 0)
         {
-            if (Selection.activeGameObject.tag == "City")
+            if (Selection.activeGameObject != null)
             {
-                GUILayout.Label("Edit Your City Details:", Header);
-
-                EditorGUILayout.Space(15);
-                EditorGUILayout.LabelField("Please Choose The Name Of Your City Prefab:", myStyle);
-                newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
-
-                if (GUILayout.Button("Save Generated City As Prefab", GUILayout.Width(300), GUILayout.Height(30)))
+                if (Selection.activeGameObject.tag == "City")
                 {
-                    GameObject selectedCity;
-                    selectedCity = Selection.activeGameObject;
-                    SaveCity(newCityName, selectedCity);
+                    GUILayout.Label("Edit Your City Details:", Header);
+
+                    EditorGUILayout.Space(15);
+                    EditorGUILayout.LabelField("Please Choose The Name Of Your City Prefab:", myStyle);
+                    newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
+
+                    if (GUILayout.Button("Save Generated City As Prefab", GUILayout.Width(300), GUILayout.Height(30)))
+                    {
+                        GameObject selectedCity;
+                        selectedCity = Selection.activeGameObject;
+                        SaveCity(newCityName, selectedCity);
+                    }
                 }
             }
-
-           
         }
 
         if (Selection.count != 0)
         {
-            if (Selection.activeGameObject.tag == "District")
+            if (Selection.activeGameObject != null)
             {
-                var curDistrict = Selection.activeGameObject;
-                #region Contains code to allow user to change their city name and street length (Unfinished)
-                GUILayout.Label("Edit Your District Details:", Header);
-
-                EditorGUILayout.Space(15);
-                EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
-                newDistrictName = EditorGUILayout.TextField(newDistrictName, GUILayout.Width(400), GUILayout.Height(25));
-
-
-                if (Selection.activeGameObject.GetComponent<CityZone>().dynamicHeight)
+                if (Selection.activeGameObject.tag == "District")
                 {
-                    EditorGUILayout.LabelField("Change Building Height", myStyle);
+                    var curDistrict = Selection.activeGameObject;
+                    #region Contains code to allow user to change their city name and street length (Unfinished)
+                    GUILayout.Label("Edit Your District Details:", Header);
 
-                    gridIntBuildingSize = GUILayout.SelectionGrid(gridIntBuildingSize, buildingHeight, 3, GUILayout.Width(300), GUILayout.Height(40));
-                }
-
-                //street density
-
-                //building density
-
-                //
+                    EditorGUILayout.Space(15);
+                    EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
+                    newDistrictName = EditorGUILayout.TextField(newDistrictName, GUILayout.Width(400), GUILayout.Height(25));
 
 
-                EditorGUILayout.Space(5);
-                if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
-                {
-                    if(newDistrictName != "")
+                    if (Selection.activeGameObject.GetComponent<CityZone>().dynamicHeight)
                     {
-                        curDistrict.name = newDistrictName;
+                        EditorGUILayout.LabelField("Change Building Height", myStyle);
+
+                        gridIntBuildingSize = GUILayout.SelectionGrid(gridIntBuildingSize, buildingHeight, 3, GUILayout.Width(300), GUILayout.Height(40));
+                    }
+
+                    //street density
+
+                    //building density
+
+                    //
+
+
+                    EditorGUILayout.Space(5);
+                    if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
+                    {
+                        if (newDistrictName != "")
+                        {
+                            curDistrict.name = newDistrictName;
+
+                        }
+
+
+                        setBuildingHeight(curDistrict, gridIntBuildingSize);
 
                     }
-                    
 
-                    setBuildingHeight(curDistrict, gridIntBuildingSize);
-                    
+                    #endregion
                 }
-
-
             }
-
-            #endregion
         }
 
 
