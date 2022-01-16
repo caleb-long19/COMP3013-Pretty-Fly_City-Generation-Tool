@@ -17,8 +17,10 @@ public class CityBuilderWindow : EditorWindow
 
     int gridIntDistrict = -1;
     int gridIntSize = -1;
+    int gridIntBuildingSize = -1;
     string[] districtNames = { "Downtown District", "Central Business District", "Residential District", "Industrial District", "Slums District", "Green Zone" };
     string[] districtSize = { "Small District", "Medium District", "Large District" };
+    string[] buildingHeight = { "Small", "Medium", "Large" };
 
     private static Texture2D tex;
 
@@ -122,34 +124,46 @@ public class CityBuilderWindow : EditorWindow
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-        if (Selection.count != 0 && Selection.activeGameObject.tag == "City")
+        if (Selection.count != 0)
         {
-
-            GUILayout.Label("Edit Your City Details:", Header);
-
-            EditorGUILayout.Space(15);
-            EditorGUILayout.LabelField("Please Choose The Name Of Your City Prefab:", myStyle);
-            newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
-
-            if (GUILayout.Button("Save Generated City As Prefab", GUILayout.Width(300), GUILayout.Height(30)))
+            if (Selection.activeGameObject.tag == "City")
             {
-                GameObject selectedCity;
-                selectedCity = Selection.activeGameObject;
-                SaveCity(newCityName, selectedCity);
+                GUILayout.Label("Edit Your City Details:", Header);
+
+                EditorGUILayout.Space(15);
+                EditorGUILayout.LabelField("Please Choose The Name Of Your City Prefab:", myStyle);
+                newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
+
+                if (GUILayout.Button("Save Generated City As Prefab", GUILayout.Width(300), GUILayout.Height(30)))
+                {
+                    GameObject selectedCity;
+                    selectedCity = Selection.activeGameObject;
+                    SaveCity(newCityName, selectedCity);
+                }
             }
+
+           
         }
 
         if (Selection.count != 0)
         {
             if (Selection.activeGameObject.tag == "District")
             {
-
+                var curDistrict = Selection.activeGameObject;
                 #region Contains code to allow user to change their city name and street length (Unfinished)
                 GUILayout.Label("Edit Your District Details:", Header);
 
                 EditorGUILayout.Space(15);
                 EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
                 newDistrictName = EditorGUILayout.TextField(newDistrictName, GUILayout.Width(400), GUILayout.Height(25));
+
+
+                if (Selection.activeGameObject.GetComponent<CityZone>().dynamicHeight)
+                {
+                    EditorGUILayout.LabelField("Change Building Height", myStyle);
+
+                    gridIntBuildingSize = GUILayout.SelectionGrid(gridIntBuildingSize, buildingHeight, 3, GUILayout.Width(300), GUILayout.Height(40));
+                }
 
                 //street density
 
@@ -161,10 +175,15 @@ public class CityBuilderWindow : EditorWindow
                 EditorGUILayout.Space(5);
                 if (GUILayout.Button("Save Details", GUILayout.Width(100), GUILayout.Height(40)))
                 {
-                    Selection.activeGameObject.name = newDistrictName;
+                    if(newDistrictName != "")
+                    {
+                        curDistrict.name = newDistrictName;
 
+                    }
+                    
 
-                    //Selection.activeGameObject = null;
+                    setBuildingHeight(curDistrict, gridIntBuildingSize);
+                    
                 }
 
 
@@ -226,10 +245,15 @@ public class CityBuilderWindow : EditorWindow
 
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation, cityParent.transform);
         newObject.transform.GetChild(3).GetComponent<LSystemGenerator>().rules[0] = (Rule)Resources.Load("rules/Rule " + districtNames[gridIntDistrict]);
+        
+        if(gridIntDistrict < 2){
+            newObject.GetComponent<CityZone>().dynamicHeight = true;
+        }
+
         Undo.RegisterCreatedObjectUndo(newObject, "Spawn District");
         newObject.name = districtNames[gridIntDistrict];
 
-        
+        newObject.GetComponent<CityZone>().distType = districtNames[gridIntDistrict];
 
 
         newObject.transform.GetChild(0).localScale = newObject.transform.GetChild(0).localScale * (gridIntSize + 1);
@@ -243,12 +267,12 @@ public class CityBuilderWindow : EditorWindow
         if(gridIntSize == 0)
         {
             newObject.GetComponent<CityZone>().DistrictSize = 6;
-            newObject.GetComponent<CityZone>().IterLimit = 1;
+            newObject.GetComponent<CityZone>().IterLimit = 2;
         }
         if (gridIntSize == 1)
         {
             newObject.GetComponent<CityZone>().DistrictSize = 8;
-            newObject.GetComponent<CityZone>().IterLimit = 2;
+            newObject.GetComponent<CityZone>().IterLimit = 3;
             newObject.GetComponent<DistrictSnap>().isMedium = true;
         }
         if (gridIntSize == 2)
@@ -311,6 +335,25 @@ public class CityBuilderWindow : EditorWindow
     private void CityBuilderRedo()
     {
         Undo.PerformRedo();
+    }
+
+    private void setBuildingHeight(GameObject dist, int x)
+    {
+
+        string districtName = dist.GetComponent<CityZone>().distType;
+
+        if(x == 0)
+        {
+            dist.GetComponent<CityZone>().buildingCollection = Resources.Load("Building Collections/" + districtName + " Buildings small") as BuildingCollection;
+        }
+        if(x == 1)
+        {
+            dist.GetComponent<CityZone>().buildingCollection = Resources.Load("Building Collections/" + districtName + " Buildings") as BuildingCollection;
+        }
+        if(x == 2)
+        {
+            dist.GetComponent<CityZone>().buildingCollection = Resources.Load("Building Collections/" + districtName + " Buildings big") as BuildingCollection;
+        }
     }
 
     //when selecting district this code will show details about it for the user to change.

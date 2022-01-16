@@ -13,6 +13,11 @@ public class CityZone : MonoBehaviour
     private float angle = 90;
     private int buildingHeight = 3;
 
+    public bool dynamicHeight = false;
+
+    public string distType;
+
+
     public BuildingCollection buildingCollection;
     public List<Vector3Int> localRoadCoordinates;
 

@@ -41,7 +41,7 @@ public class BuildingPlacer : MonoBehaviour
             {
                 if(buildingCollection.buildings[i].quantity == -1)
                 {
-                    var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent, buildingCollection.buildings[i].isStackable);
+                    var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent);
                     structuresDictionary.Add(freeSpot.Key, building);
                     break;
                 }
@@ -54,7 +54,7 @@ public class BuildingPlacer : MonoBehaviour
                         if(VerifyIfBuildingFits(halfSize, freeSpots,freeSpot,blockedPositions ,ref tempPosLocked))
                         {
                             blockedPositions.AddRange(tempPosLocked);
-                            var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent, buildingCollection.buildings[i].isStackable);
+                            var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent);
                             structuresDictionary.Add(freeSpot.Key, building);
                             foreach(var pos in tempPosLocked)
                             {
@@ -65,7 +65,7 @@ public class BuildingPlacer : MonoBehaviour
                     }
                     else
                     {
-                        var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent, buildingCollection.buildings[i].isStackable);
+                        var building = SpawnPrefab(buildingCollection.buildings[i].GetPrefab(), freeSpot.Key, rotation, parent);
                         structuresDictionary.Add(freeSpot.Key, building);
                     }
                     break;
@@ -102,15 +102,14 @@ public class BuildingPlacer : MonoBehaviour
         return true;
     }
 
-    private GameObject SpawnPrefab(GameObject prefab, Vector3Int position, Quaternion rotation, Transform parent, bool isStackable)
+    private GameObject SpawnPrefab(GameObject prefab, Vector3Int position, Quaternion rotation, Transform parent)
     {
-        if (!isStackable)
-        {
-            var newStructure = Instantiate(prefab, position, rotation, parent);
-            Undo.RegisterCreatedObjectUndo(newStructure, "Generate Buildings");
-            return newStructure;
-        }
-        else return null;
+        var newStructure = Instantiate(prefab, position, rotation, parent);
+        Undo.RegisterCreatedObjectUndo(newStructure, "Generate Buildings");
+        return newStructure;
+
+
+
 
     }
 
