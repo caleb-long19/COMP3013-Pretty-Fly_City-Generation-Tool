@@ -16,7 +16,6 @@ MonoBehaviour:
   - prefabs:
     - {fileID: 6541589922960813125, guid: 4db6ba54fc43f2240b813112f34e369a, type: 3}
     - {fileID: 6541589922960813125, guid: f8d09a2a9e29c5341ba44a06bfb24efb, type: 3}
-    - {fileID: 2893367402727921218, guid: 80d32cb1c13abd84ba520d8e13cc3396, type: 3}
     sizeRequired: 3
     quantity: 200
     quantityAlreadyPlaced: 22
