@@ -83,3 +83,8 @@ An easy to use developer tool for quickly generating open world city scapes for 
 * Unity
 * Blender
 * GitHub
+
+### Third Party Assets
+[Models By Quaternius](https://quaternius.com/)
+[Modular Streets Pack by Quaternius](https://quaternius.com/packs/modularstreets.html)
+[Ultimate Buildings Pack by Quaternius](https://quaternius.com/packs/ultimatetexturedbuildings.html)
