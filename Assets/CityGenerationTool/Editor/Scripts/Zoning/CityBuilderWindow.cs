@@ -200,7 +200,7 @@ public class CityBuilderWindow : EditorWindow
 
     private void Spawn()
     {
-        districtToSpawn = Resources.Load("prefabs/District Prefab") as GameObject;
+        districtToSpawn = Resources.Load("Prefabs/District Prefab") as GameObject;
 
         if(gridIntDistrict == -1)
         {
@@ -229,24 +229,24 @@ public class CityBuilderWindow : EditorWindow
             cityParent.AddComponent<CityWhole>();
             cityParent.tag = "City";
 
-            GameObject roadPlacer = Instantiate(Resources.Load("prefabs/Road Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
+            GameObject roadPlacer = Instantiate(Resources.Load("Prefabs/Road Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
             roadPlacer.name = "Road Placer";
             cityParent.GetComponent<CityWhole>().RoadPlacer = roadPlacer.GetComponent<Roads>();
 
-            GameObject buildingPlacer = Instantiate(Resources.Load("prefabs/Building Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
+            GameObject buildingPlacer = Instantiate(Resources.Load("Prefabs/Building Placer") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
             buildingPlacer.name = "Building Placer";
             cityParent.GetComponent<CityWhole>().BuildingPlacer = buildingPlacer.GetComponent<BuildingPlacer>();
 
-            GameObject gridManager = Instantiate(Resources.Load("prefabs/Grid Manager") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
+            GameObject gridManager = Instantiate(Resources.Load("Prefabs/Grid Manager") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
             gridManager.name = "Grid Manager";
 
-            GameObject terrainHelper = Instantiate(Resources.Load("prefabs/Terrain Helper") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
+            GameObject terrainHelper = Instantiate(Resources.Load("Prefabs/Terrain Helper") as GameObject, Vector3.zero, Quaternion.identity, cityParent.transform);
             terrainHelper.name = "Terrain Helper";
             cityParent.GetComponent<CityWhole>().TerrainHelper = terrainHelper.GetComponent<TerrainGeneration>();
         }
 
         GameObject newObject = Instantiate(districtToSpawn, Vector3.zero, districtToSpawn.transform.rotation, cityParent.transform);
-        newObject.transform.GetChild(3).GetComponent<LSystemGenerator>().rules[0] = (Rule)Resources.Load("rules/Rule " + districtNames[gridIntDistrict]);
+        newObject.transform.GetChild(3).GetComponent<LSystemGenerator>().rules[0] = (Rule)Resources.Load("Rules/Rule " + districtNames[gridIntDistrict]);
         
         if(gridIntDistrict < 2){
             newObject.GetComponent<CityZone>().dynamicHeight = true;
@@ -259,7 +259,7 @@ public class CityBuilderWindow : EditorWindow
 
 
         newObject.transform.GetChild(0).localScale = newObject.transform.GetChild(0).localScale * (gridIntSize + 1);
-        newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("plane materials/" + districtNames[gridIntDistrict], typeof(Material)) as Material;
+        newObject.transform.GetChild(0).GetComponent<Renderer>().material = Resources.Load("Planes/" + districtNames[gridIntDistrict], typeof(Material)) as Material;
 
         //newObject.transform.GetChild(2).GetComponent<BuildingPlacer>().buildingCollection = (BuildingCollection)Resources.Load("Building Collections/" + objectBaseName + " Buildings");
         newObject.GetComponent<CityZone>().buildingCollection = Resources.Load("Building Collections/" + districtNames[gridIntDistrict] + " Buildings") as BuildingCollection;
