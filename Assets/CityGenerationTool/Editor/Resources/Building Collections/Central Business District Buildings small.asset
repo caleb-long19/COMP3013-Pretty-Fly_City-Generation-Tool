@@ -15,16 +15,20 @@ MonoBehaviour:
   buildings:
   - prefabs:
     - {fileID: 9040599290667148103, guid: eb625e247e6f68b44979ff6086188c65, type: 3}
-    sizeRequired: 5
+    sizeRequired: 3
+    quantity: 1
+    quantityAlreadyPlaced: 100
+  - prefabs:
+    - {fileID: 9040599290667148103, guid: eb625e247e6f68b44979ff6086188c65, type: 3}
+    - {fileID: 9040599290667148103, guid: 859d475fad3961542807cc47456cb377, type: 3}
+    - {fileID: 9040599290667148103, guid: f40d1373afa1b514098ba9d26c9f389d, type: 3}
+    sizeRequired: 3
     quantity: 3
     quantityAlreadyPlaced: 3
   - prefabs:
-    - {fileID: 919132149155446097, guid: 0981757c7b086d346b24451af5c36931, type: 3}
-    sizeRequired: 2
-    quantity: 3
-    quantityAlreadyPlaced: 1
-  - prefabs:
-    - {fileID: 919132149155446097, guid: dc56c081ccf2d7e418179d144f5946c5, type: 3}
-    sizeRequired: 2
-    quantity: -1
-    quantityAlreadyPlaced: 1
+    - {fileID: 5103886987136160163, guid: e4896ab5b0c6ee34ba9d99b40aed0193, type: 3}
+    - {fileID: 9040599290667148103, guid: 92afaeb04952e0e4bb8049bdf829e65f, type: 3}
+    - {fileID: 5103886987136160163, guid: 95e8b9f6b8bf5d54cb4749bedfa88fe4, type: 3}
+    sizeRequired: 1
+    quantity: 100
+    quantityAlreadyPlaced: 100

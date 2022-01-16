@@ -15,6 +15,7 @@ MonoBehaviour:
   buildings:
   - prefabs:
     - {fileID: 7646764921246646927, guid: 1e3618a5fc2e2e7499004fe136e6e8c0, type: 3}
+    - {fileID: 4723491850668850290, guid: f8512036bca026544b868ff62d9ccfa3, type: 3}
     sizeRequired: 2
     quantity: 7
     quantityAlreadyPlaced: 7
@@ -23,4 +24,4 @@ MonoBehaviour:
     - {fileID: 4723491850668850290, guid: f7c9ae0f792e40741a54651dcb2c0607, type: 3}
     sizeRequired: 2
     quantity: -1
-    quantityAlreadyPlaced: 123
+    quantityAlreadyPlaced: 321

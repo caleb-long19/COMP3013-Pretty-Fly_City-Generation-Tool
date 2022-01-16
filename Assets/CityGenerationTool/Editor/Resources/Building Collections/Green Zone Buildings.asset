@@ -12,12 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e181b369969204d9ac0a4bd277bb27, type: 3}
   m_Name: Green Zone Buildings
   m_EditorClassIdentifier: 
-  buildings:
-  - prefabs:
-    - {fileID: 8749142042295684258, guid: b628d6a9a83eda842a29dd919cccfb00, type: 3}
-    - {fileID: 8749142042295684258, guid: acc5fe3921751a44ebeb71b9fffd7fbf, type: 3}
-    - {fileID: 8749142042295684258, guid: 293ce2aa584529f429dbcf62905f1dc7, type: 3}
-    - {fileID: 8749142042295684258, guid: 0617134a1a62a3f47a31b13ad4a67331, type: 3}
-    sizeRequired: 0
-    quantity: -1
-    quantityAlreadyPlaced: 242
+  buildings: []

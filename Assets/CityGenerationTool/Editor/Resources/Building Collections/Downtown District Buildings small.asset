@@ -14,13 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildings:
   - prefabs:
-    - {fileID: 9040599290667148103, guid: f40d1373afa1b514098ba9d26c9f389d, type: 3}
-    - {fileID: 9040599290667148103, guid: eb92224675153c348860993eb5b366de, type: 3}
-    sizeRequired: 2
-    quantity: 16
-    quantityAlreadyPlaced: 16
+    - {fileID: 6703790973170568356, guid: dd965af7328a3f045a7e080aae843119, type: 3}
+    - {fileID: 9040599290667148103, guid: e3243920423c5274dbc92ceccb371674, type: 3}
+    sizeRequired: 4
+    quantity: 2
+    quantityAlreadyPlaced: 2
   - prefabs:
-    - {fileID: 9040599290667148103, guid: eb92224675153c348860993eb5b366de, type: 3}
-    sizeRequired: 1
+    - {fileID: 6703790973170568356, guid: 42f8295778511704eb7853e7a20dc5a0, type: 3}
+    - {fileID: 9040599290667148103, guid: e3243920423c5274dbc92ceccb371674, type: 3}
+    sizeRequired: 3
     quantity: 10
     quantityAlreadyPlaced: 10
+  - prefabs:
+    - {fileID: 6703790973170568356, guid: 42f8295778511704eb7853e7a20dc5a0, type: 3}
+    - {fileID: 6703790973170568356, guid: 01b2b04e4add37d4993cc6e6c0e3c89a, type: 3}
+    - {fileID: 7646764921246646927, guid: 1c1e064ed85dd494d907d637136d9cbc, type: 3}
+    sizeRequired: 1
+    quantity: -1
+    quantityAlreadyPlaced: 248
