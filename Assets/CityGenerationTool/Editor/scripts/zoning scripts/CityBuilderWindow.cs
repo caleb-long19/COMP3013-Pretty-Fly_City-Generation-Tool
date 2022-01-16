@@ -7,7 +7,6 @@ public class CityBuilderWindow : EditorWindow
 {
     private string cityName = "";
     private string newDistrictName = "";
-    private string newStreetLength = "";
     private string newCityName = "";
 
     private int objectID = 1;
@@ -40,6 +39,11 @@ public class CityBuilderWindow : EditorWindow
         cityParent = GameObject.FindGameObjectWithTag("City");
     }
 
+
+    void OnInspectorUpdate()
+    {
+        Repaint();
+    }
 
     private void OnGUI() 
     {
@@ -114,24 +118,38 @@ public class CityBuilderWindow : EditorWindow
         }
         GUILayout.EndHorizontal();
         #endregion
-        if(Selection.count != 0)
+
+        EditorGUILayout.Space(10);
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+        if (Selection.count != 0 && Selection.activeGameObject.tag == "City")
+        {
+
+            GUILayout.Label("Edit Your City Details:", Header);
+
+            EditorGUILayout.Space(15);
+            EditorGUILayout.LabelField("Please Choose The Name Of Your City Prefab:", myStyle);
+            newCityName = EditorGUILayout.TextField(newCityName, GUILayout.Width(400), GUILayout.Height(25));
+
+            if (GUILayout.Button("Save Generated City As Prefab", GUILayout.Width(300), GUILayout.Height(30)))
+            {
+                GameObject selectedCity;
+                selectedCity = Selection.activeGameObject;
+                SaveCity(newCityName, selectedCity);
+            }
+        }
+
+        if (Selection.count != 0)
         {
             if (Selection.activeGameObject.tag == "District")
             {
-                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-                EditorGUILayout.Space(5);
 
                 #region Contains code to allow user to change their city name and street length (Unfinished)
-                GUILayout.Label("Edit Your District Details: UNFINISHED", Header);
+                GUILayout.Label("Edit Your District Details:", Header);
 
                 EditorGUILayout.Space(15);
                 EditorGUILayout.LabelField("Change Selected District Name:", myStyle);
                 newDistrictName = EditorGUILayout.TextField(newDistrictName, GUILayout.Width(400), GUILayout.Height(25));
-
-                EditorGUILayout.Space(15);
-                EditorGUILayout.LabelField("Change Your Street Length:", myStyle);
-                newStreetLength = EditorGUILayout.TextField(newStreetLength, GUILayout.Width(400), GUILayout.Height(25));
-
 
                 //street density
 
