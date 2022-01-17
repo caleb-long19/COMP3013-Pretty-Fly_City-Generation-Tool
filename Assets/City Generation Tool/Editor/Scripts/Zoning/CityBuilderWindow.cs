@@ -309,7 +309,7 @@ public class CityBuilderWindow : EditorWindow
         var ctiyChilds = GameObject.FindGameObjectsWithTag("CG_DAP");
 
         //Code to save generated city and prevent it from being overwritten when the user clicks generate city again
-        string saveLocation = "Assets/CityGenerationTool/Editor/CityPrefabs/" + selectedCity.name + ".prefab";
+        string saveLocation = "Assets/City Generation Tool/Editor/CityPrefabs/" + selectedCity.name + ".prefab";
 
         foreach (GameObject child in ctiyChilds)
         {
