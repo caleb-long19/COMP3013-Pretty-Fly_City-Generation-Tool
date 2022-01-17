@@ -69,20 +69,38 @@ An easy to use developer tool for quickly generating open world city scapes for 
 * Interconnecting Road System (L-System Generated) 
 * Choose the size of your district 
 * Randomly generate Buildings Models & Roads within your District Grids with the press of a button 
-* Curved Road Models to help provide a more natural road system 
+* Terrain
+* Change the height of your buildings
+* Adjust the L-System rules and change your roads
+* Adjust the building density in your city
 * Simplistic UI is both informative and easy to use 
 * Name Your City 
 * Edit your city details after your city has been generated 
 * Save your city as a prefab and use it whenever you like! 
 * Undo/Redo Your Mistakes 
+* Clear your city after generation
 
 ### Roadmap Features
 * Vehicle AI - Allow the city to have cars roaming around to feel more like a city and save devs more time
+* Curved Roads - Addition proved too difficult at the time: feature pushed to roadmap
 
 ### Software Programs Used
 * Unity
 * Blender
 * GitHub
+
+# IMPORTANT
+THE TOOL USES SHADERS - MAKE SURE TO HAVE "Universal Render Pipeline (URP)" INSTALLED OR THE TEXTURES WON'T LOAD. 
+
+* GO TO PACKAGE MANAGER IN THE "Window" TAB ON UNITY
+* FIND AND INSTALL "Universal RP"
+* RIGHT CLICK IN THE ASSETS FOLDER
+* CREATE, RENDERING, UNIVERSAL RENDER PIPELINE, PIPELINE ASSET(Forward Renderer)
+* EDIT Tab, PROJECT SETTINGS, GRAPHICS
+* SET SCRIPTABLE RENDER PIPELINE SETTINGS TO "Universal RP Pipeline Asset"
+* EDIT Tab, RENDER PIPELINE, UNIVERSAL RP, UPGRADE PROJECT MATERIALS TO UNIVERSAL RP MATERIALS
+
+All Shaders and textures will be up-to-date!
 
 ### Third Party Assets
 * [Models By Quaternius](https://quaternius.com/)
